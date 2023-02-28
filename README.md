@@ -1,6 +1,6 @@
 ## How to contribute
 1. Fork the repository
-2. Clone it in yoor local machine
+2. Clone it in your local machine
 3. Create a local branch from master
 
 ### How to run the project
