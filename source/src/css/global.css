@@ -1,0 +1,26 @@
+*,
+body {
+	margin: 0;
+	padding: 0;
+	user-select: none;
+}
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+select:focus,
+option:focus {
+	outline: none;
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background-color: rgb(127 38 38);
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background-color: rgb(153 28 28);
+}
