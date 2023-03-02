@@ -1,9 +1,9 @@
 <script>
-	// Imports
+	
 	const { ipcRenderer } = require("electron");
+
 	import { fade } from "svelte/transition"
 
-	// Components
 	import Header from "./components/Header.svelte";
 	import SideMenu from "./components/SideMenu.svelte";
 	import AddButton from "./components/AddButton.svelte";
@@ -15,7 +15,6 @@
 	import ExitApplicationWindow from "./components/ExitApplicationWindow.svelte";
 	import Logo from "./components/Logo.svelte";
 
-	// Views
 	import Dashboard from "./views/Dashboard.svelte";
 	import Courses from "./views/Courses.svelte";
 	import Rooms from "./views/Rooms.svelte";
@@ -31,24 +30,14 @@
 	import ProgramView from "./views/individualViews/ProgramView.svelte";
 	import AdviceTime from "./views/individualViews/AdviceTime.svelte";
 	import ProfessorOverview from "./views/ProfessorOverview.svelte";
-	// import Modal from 'svelte-simple-modal';
-	// import Popup from './views/Content.svelte';
-	// import { writable } from 'svelte/store';
-	// const modal = writable(null);
-	// const showModal = () => modal.set(Popup);
 
-	// Stores
 	import { viewComponentValue, loadingScreenDone, authenticateComplete, selectedData, sideMenuStatus, addWindowStatus, editWindowStatus, settingsWindowStatus, deleteWindowStatus, deleteWindowScheduleStatus, exitApplicationWindowStatus } from "./stores/ui";
 
-
 	let loadingStatus = setInterval(() => {
-		console.log("Sending loading screen request...")
 		ipcRenderer.send("loading-screen");
 	}, 500)
 
 	ipcRenderer.on("loading-screen", (event, res) => {
-		console.log("Received something.")
-		console.log(res);
 		if (res) {
 			setTimeout(() => {
 				loadingScreenDone.set(true);
@@ -108,8 +97,6 @@
 			sideMenuStatus.set(false);
 			selectedData.set("");
 		}
-
-		console.log(e)
 	}
 
 </script>
@@ -161,7 +148,7 @@
 		{/if}
 	</main>
 	
-	{#if $selectedData == "" || ( $viewComponentValue !== 6 || $viewComponentValue !== 7 || $viewComponentValue !== 8) }
+	{#if $selectedData == "" || ($viewComponentValue !== 7 || $viewComponentValue !== 8) }
 		<AddButton />
 	{/if}
 {/if}

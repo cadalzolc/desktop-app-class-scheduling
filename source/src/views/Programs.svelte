@@ -4,21 +4,19 @@
   import { onMount, onDestroy } from 'svelte';
 
   let programData = [];
+
   onMount(() => {
     ipcRenderer.send("retrieve-program-data");
   });
 
   let search = "";
 
-  let searchData = (search) => {
-    console.log('Search Data');
-    console.log('search ' + search);    
+  let searchData = (search) => {  
     ipcRenderer.send("retrieve-program-data" , search);
   };
 
   ipcRenderer.on("retrieve-program-data", (event, res) => {
     programData = res;
-    console.log(programData);
   });
 
   let selectData = (data) => {
@@ -61,14 +59,4 @@
       </div>
   {/if}
   
-  <!-- {#if programData.length != 0}
-    {#each programData as program (program._id)}
-      <button on:click={() => selectData(program)} class="card h-14 w-full border-b flex flex-row justify-between items-center hover:bg-gray-100 active:bg-gray-200">
-        <h1 class="text-xl font-light m-6">[{program.acronym} {program.year} - {program.section}] {program.name} {program.year} - {program.section}</h1>
-        <h2 class="p-6 text-3xl font-light -mt-1">></h2>
-      </button>
-    {/each}
-  {:else}
-    <h1 class="text-4xl font-thin text-center">No data found.</h1>
-  {/if} -->
 </div>

@@ -24,3 +24,15 @@ option:focus {
 ::-webkit-scrollbar-thumb:hover {
 	background-color: rgb(153 28 28);
 }
+
+.mt-1 {
+    margin-top: 5px;
+}
+
+.mt-2 {
+    margin-top: 10px;
+}
+
+.mt-3 {
+    margin-top: 15px;
+}

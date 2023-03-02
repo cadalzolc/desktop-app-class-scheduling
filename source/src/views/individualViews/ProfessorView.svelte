@@ -9,23 +9,23 @@
 
   let filterSubjectsData = (course_filter = 0) => {
     if(course_filter == courseOrder) course_filter = 0;
-
     courseOrder = course_filter;
-    console.log('subject filter : ' + courseOrder);
     ipcRenderer.send("retrieve-schedule-professor-data", $selectedData._id , courseOrder);
   };
 
   let editSelected = () => {
-    console.log($selectedData);
     editWindowStatus.set(true);
   }
+
   let tbdSelected = (tbd) => {
     tbdData.set(tbd);
     deleteWindowScheduleStatus.set(true);
   }
+
   let exportExcel = () => {
     ipcRenderer.send("export-to-excel", $selectedData);
   }
+
   ipcRenderer.on("retrieve-settings-data", (event, res) => {
     console.log(res)
     $settingsData.uid = res[0].uid;
@@ -34,8 +34,8 @@
     $settingsData.systemPassword = res[0].systemPassword;
     ipcRenderer.removeAllListeners("retrieve-settings-data");
   });
+
   onMount(() => {
-    console.log("Mounted");
     console.log($selectedData._id);
     ipcRenderer.send("retrieve-settings-data");
     ipcRenderer.send("retrieve-course-data");
@@ -43,8 +43,8 @@
     ipcRenderer.send("retrieve-program-data");
     ipcRenderer.send("retrieve-schedule-professor-data", $selectedData._id);
   });
+  
   onDestroy(() => {
-    console.log("Destroyed");
     ipcRenderer.removeAllListeners("retrieve-course-data");
     ipcRenderer.removeAllListeners("retrieve-room-data");
     ipcRenderer.removeAllListeners("retrieve-program-data");

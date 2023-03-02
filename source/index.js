@@ -18,12 +18,12 @@ function createWindow() {
 		minHeight: 600,
 		width: 960,
 		height: 600,
-		titleBarStyle: "hidden",
-		autoHideMenuBar: true,
+		//titleBarStyle: "hidden",
+		autoHideMenuBar: false,
 		webPreferences: {
 			nodeIntegration: true,
 			contextIsolation: false,
-			devTools: false,
+			devTools: true,
 		},
 	});
 
@@ -36,6 +36,8 @@ function createWindow() {
 
 	// If in production, don't show.
 	// if (isDev) win.webContents.openDevTools();
+
+	win.webContents.openDevTools();
 
 	// Sends shutdown request from renderer
 	ipcMain.on("shutdown-prompt", () => {
