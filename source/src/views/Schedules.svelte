@@ -8,14 +8,11 @@
 
     let filterSubjectsData = (course_filter = 0 , search = '') => {
         if(course_filter == courseOrder) course_filter = 0;
-
         courseOrder = course_filter;
-        console.log('subject filter : ' + courseOrder);
         ipcRenderer.send("retrieve-schedule-data", courseOrder , search);
     };
 
     let editSelected = () => {
-        console.log($selectedData);
         editWindowStatus.set(true);
     }
 
@@ -29,12 +26,11 @@
     }
 
     onMount(() => {
-        ipcRenderer.send("retrieve-schedule-data");
+      ipcRenderer.send("retrieve-schedule-data");
     });
 
     ipcRenderer.on("retrieve-schedule-data", (event, res) => {
       scheduleData = res;
-      console.log(scheduleData);
     });
   
     let selectData = (data) => {

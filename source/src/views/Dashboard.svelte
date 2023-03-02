@@ -1,5 +1,6 @@
 <script>
   const { ipcRenderer } = require("electron");
+  
   import { viewComponentValue, settingsData } from "../stores/ui";
   import { onDestroy, onMount } from 'svelte';
 
@@ -14,6 +15,7 @@
     "Time to pack your stuff and head back home. We can continue tomorrow.",
     "A well-rested worker is an efficient worker."
   ];
+
   let dashboardData = {
 			coursesNumber: 0,
 			professorsNumber: 0,
@@ -125,42 +127,42 @@
       <button on:click={() => viewComponentValueChange(2)} class="p-1 border-t-2 font-light border-gray-300 hover:border-gray-400 active:bg-gray-400 active:border-gray-400 active:text-white">Rooms</button>
       <button on:click={() => viewComponentValueChange(3)} class="p-1 border-t-2 font-light border-gray-300 hover:border-gray-400 active:bg-gray-400 active:border-gray-400 active:text-white">Professors</button>
       <button on:click={() => viewComponentValueChange(4)} class="p-1 border-t-2 font-light border-gray-300 hover:border-gray-400 active:bg-gray-400 active:border-gray-400 active:text-white">Programs</button>
-      <!-- <button on:click={() => viewComponentValueChange(5)} class="p-1 border-t-2 font-light border-gray-300 hover:border-gray-400 active:bg-gray-400 active:border-gray-400 active:text-white">Subjects</button> -->
       <button on:click={() => viewComponentValueChange(6)} class="p-1 border-t-2 font-light border-gray-300 hover:border-gray-400 active:bg-gray-400 active:border-gray-400 active:text-white">Schedules</button>
       <button on:click={() => viewComponentValueChange(7)} class="p-1 border-t-2 font-light border-gray-300 hover:border-gray-400 active:bg-gray-400 active:border-gray-400 active:text-white">Professor Overview</button>
     </nav>
   </div>
 
   <section class="flex flex-row justify-center flex-wrap">
+
     <div class="w-64 h-auto bg-gray-200 m-6 flex flex-col rounded-md drop-shadow-md">
       <h1 class="w-full py-4 bg-gray-300 text-3xl font-light text-center rounded-t-md drop-shadow-md">Courses</h1>
       <h2 class="text-center py-14 text-7xl font-thin">{ dashboardData.coursesNumber }</h2>
       <h3 class="w-full text-center text-2xl font-light py-2">Registered</h3>
     </div>
+
     <div class="w-64 h-auto bg-gray-200 m-6 flex flex-col rounded-md drop-shadow-md">
       <h1 class="w-full py-4 bg-gray-300 text-3xl font-light text-center rounded-t-md drop-shadow-md">Professors</h1>
       <h2 class="text-center py-14 text-7xl font-thin">{ dashboardData.professorsNumber }</h2>
       <h3 class="w-full text-center text-2xl font-light py-2">Registered</h3>
     </div>
+
     <div class="w-64 h-auto bg-gray-200 m-6 flex flex-col rounded-md drop-shadow-md">
       <h1 class="w-full py-4 bg-gray-300 text-3xl font-light text-center rounded-t-md drop-shadow-md">Rooms</h1>
       <h2 class="text-center py-14 text-7xl font-thin">{ dashboardData.roomsNumber }</h2>
       <h3 class="w-full text-center text-2xl font-light py-2">Registered</h3>
     </div>
+
     <div class="w-64 h-auto bg-gray-200 m-6 flex flex-col rounded-md drop-shadow-md">
       <h1 class="w-full py-4 bg-gray-300 text-3xl font-light text-center rounded-t-md drop-shadow-md">Programs</h1>
       <h2 class="text-center py-14 text-7xl font-thin">{ dashboardData.programsNumber }</h2>
       <h3 class="w-full text-center text-2xl font-light py-2">Registered</h3>
     </div>
-    <!-- <div class="w-64 h-auto bg-gray-200 m-6 flex flex-col rounded-md drop-shadow-md">
-      <h1 class="w-full py-4 bg-gray-300 text-3xl font-light text-center rounded-t-md drop-shadow-md">Subjects</h1>
-      <h2 class="text-center py-14 text-7xl font-thin">{ dashboardData.subjectsNumber }</h2>
-      <h3 class="w-full text-center text-2xl font-light py-2">Registered</h3>
-    </div> -->
+
     <div class="w-64 h-auto bg-gray-200 m-6 flex flex-col rounded-md drop-shadow-md">
       <h1 class="w-full py-4 bg-gray-300 text-3xl font-light text-center rounded-t-md drop-shadow-md">Schedules</h1>
       <h2 class="text-center py-14 text-7xl font-thin">{ dashboardData.schedulesNumber }</h2>
       <h3 class="w-full text-center text-2xl font-light py-2">Registered</h3>
     </div>
+
   </section>
 </div>

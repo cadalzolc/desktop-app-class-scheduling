@@ -2,18 +2,10 @@ const mongoose = require("mongoose");
 
 const ScheduleModel = mongoose.Schema({
 	day: {
-		// 0 - Monday
-		// 1 - Tuesday
-		// 2 - Wednesday
-		// 3 - Thurday
-		// 4 - Friday
-		// 5 - Saturday
-		// 6 - Sunday
 		type: Number,
 		require: true,
 	},
 	type: {
-		// SUBSTITUTE , FULLTIME
 		type: String,
 		require: true,
 	},

@@ -3,8 +3,6 @@ const { ipcMain, dialog } = require("electron");
 const path = require("path");
 const xl = require("excel4node");
 
-console.log(`system js`);
-
 module.exports = function (win) {
 	const CourseModel = require(`${__dirname}/models/courseModel.js`);
 	const ProfessorModel = require(`${__dirname}/models/professorModel.js`);
@@ -194,15 +192,6 @@ module.exports = function (win) {
 
 	ipcMain.on("retrieve-professor-data", async (event , search = '') => {
 		try {
-			// let ScheduleData = await ScheduleModel.find({
-			// 	"professorData._id": professorId,
-			// }).sort({
-			// 	"courseData.name": course_order,
-			// 	day: 1,
-			// 	"time.start.hours": 1,
-			// 	"time.start.minutes": 1,
-			// });
-
 			let ProfessorData = await ProfessorModel.find(
 				{
 					"$expr": {
@@ -215,7 +204,6 @@ module.exports = function (win) {
 				}				
 			).sort({
 				"name.first": -1,
-				// "name.last": 1,
 			});
 			win.webContents.send(
 				"retrieve-professor-data",
@@ -555,24 +543,6 @@ module.exports = function (win) {
 		}
 	});
 
-	// ipcMain.on("delete-advisetime", async (event, selectedData) => {
-	// 	try {
-	// 		let professorData = await ProfessorModel.find({
-	// 			"_id": selectedData,
-	// 		});
-
-	// 		win.webContents.send("delete-advisetime", {
-	// 			success: true,
-	// 			message: "Deleted Successfully.",
-	// 		});
-	// 	} catch (err) {
-	// 		win.webContents.send("delete-advisetime", {
-	// 			success: false,
-	// 			message: err,
-	// 		});
-	// 	}
-	// });
-
 	// ipcMain.on("save-data-professor-advisetime", async (event, scheduleData = {} , type = 'add') => {
 	ipcMain.on("save-data-professor-advisetime", async (event, scheduleData , type = 'add') => {
 		try {
@@ -704,44 +674,14 @@ module.exports = function (win) {
 	});
 
 	ipcMain.on("save-data-schedule", async (event, scheduleData) => {
-		// console.log(scheduleData);
 
 		try {
-			if (
-				parseInt(
-					`${scheduleData.time.start.hours}${scheduleData.time.start.minutes}`
-				) < 730
-			)
-				throw "Time must start at 7:30 AM.";
-
-			if (
-				parseInt(
-					`${scheduleData.time.start.hours}${scheduleData.time.start.minutes}`
-				) > 2100
-			)
-				throw "Time must start at 7:30 AM.";
-
-			if (
-				parseInt(
-					`${scheduleData.time.end.hours}${scheduleData.time.end.minutes}`
-				) < 730
-			)
-				throw "Time must end at 9:00 PM.";
-
-			if (
-				parseInt(
-					`${scheduleData.time.end.hours}${scheduleData.time.end.minutes}`
-				) > 2100
-			)
-				throw "Time must end at 9:00 PM.";
-
+			
 			console.log(scheduleData.professorData._id);
 			let scheduleDataGathered = await ScheduleModel.find({
 				"professorData._id": scheduleData.professorData._id,
 			});
-			console.log("Line: 284");
-			console.log(scheduleDataGathered);
-			console.log("Line: 286");
+			
 
 			let scheduleDataHours = scheduleData.courseData.hours;
 			scheduleDataGathered.forEach((schedule) => {
@@ -3059,5 +2999,88 @@ module.exports = function (win) {
 		}
 	});
 
-	console.log(`finished loading events`);
+	ipcMain.on("get-professor-list", async (event) => {
+		let result = await ProfessorModel
+			.find({})
+			.sort({ "name.first": -1 })
+			.then((res) => {
+				return {
+					success: true,
+					message: `${res.length} record found`,
+					data: JSON.parse(JSON.stringify(res))
+				}
+			})
+			.catch((err) => {
+				return {
+					success: false,
+					message: err,
+					data: null
+				}
+			});
+		win.webContents.send("get-professor-list", result);
+	});
+
+	ipcMain.on("get-room-list", async (event) => {
+		let result = await RoomModel
+			.find({})
+			.sort({ "name": -1 })
+			.then((res) => {
+				return {
+					success: true,
+					message: `${res.length} record found`,
+					data: JSON.parse(JSON.stringify(res))
+				}
+			})
+			.catch((err) => {
+				return {
+					success: false,
+					message: err,
+					data: null
+				}
+			});
+		win.webContents.send("get-room-list", result);
+	});
+
+	ipcMain.on("get-courses-list", async (event) => {
+		let result = await CourseModel
+			.find({})
+			.sort({ "name": -1 })
+			.then((res) => {
+				return {
+					success: true,
+					message: `${res.length} record found`,
+					data: JSON.parse(JSON.stringify(res))
+				}
+			})
+			.catch((err) => {
+				return {
+					success: false,
+					message: err,
+					data: null
+				}
+			});
+		win.webContents.send("get-courses-list", result);
+	});
+
+	ipcMain.on("get-program-list", async (event) => {
+		let result = await ProgramModel
+			.find({})
+			.sort({ "name": -1 })
+			.then((res) => {
+				return {
+					success: true,
+					message: `${res.length} record found`,
+					data: JSON.parse(JSON.stringify(res))
+				}
+			})
+			.catch((err) => {
+				return {
+					success: false,
+					message: err,
+					data: null
+				}
+			});
+		win.webContents.send("get-program-list", result);
+	});
+
 };

@@ -8,7 +8,7 @@
   import AddAdviseTime from "./AddWindowViews/AddAdviseTime.svelte";
   import { viewComponentValue, addWindowStatus, selectedData } from "../stores/ui";
   import { fly, fade } from "svelte/transition"; 
-  import { onDestroy } from "svelte";
+  import { onDestroy, onMount } from "svelte";
 
   let headerTitle = [
     "Courses",
@@ -16,11 +16,8 @@
     "Professors",
     "Programs",
     "Schedules",
+    "Schedules",
   ];
-
-  onDestroy(() => {
-    console.log("Destoryed Shit")
-  })
 </script>
 
 {#if $addWindowStatus}
@@ -34,21 +31,16 @@
           {$selectedData == "" ? headerTitle[$viewComponentValue - 1] : "Schedule"}
         {/if}        
       </h1>
-
       {#if $viewComponentValue == 1}
         <AddCourse />
       {:else if $viewComponentValue == 2}
         <AddRoom />
       {:else if $viewComponentValue == 3}
-        {#if $selectedData == ""}
-          <AddProfessor />
-        {:else}
-          <AddSchedule />
-        {/if}
+        <AddProfessor />
       {:else if $viewComponentValue == 4}
         <AddProgram />
-      <!-- {:else if $viewComponentValue == 7}
-        <ProfessorOverviewModal /> -->
+      {:else if $viewComponentValue == 6}
+        <AddSchedule />
       {:else if $viewComponentValue == 8}
         <AddAdviseTime />
       {/if}

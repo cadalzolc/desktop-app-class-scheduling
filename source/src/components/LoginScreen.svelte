@@ -49,7 +49,7 @@
     <p class="mt-2 mb-10 text-lg text-center text-white">To confirm it is you, please enter your password.</p>
     <p class="text-center h-10 text-white flex flex-col justify-end">{message}</p>
     <input disabled={formDisabled} bind:value={password} type="password" class="rounded-md w-full font-light p-2 px-4 m-4 mt-1">
-    <button disabled={formDisabled} on:click={checkPassword} class="rounded-full w-4/6 m-1 text-white text-light hover:bg-yellow-400 disabled:active:hover:drop-shadow-md active:bg-yellow-500 disabled:bg-yellow-600">Login</button>
+    <button disabled={formDisabled} on:click={checkPassword} class="rounded-full w-4/6 m-1 text-white text-light hover:bg-yellow-400 disabled:active:hover:drop-shadow-md active:bg-yellow-500 disabled:bg-yellow-600" tabindex="0">Login</button>
     <button disabled={formDisabled} on:click={() => {$resetPasswordWindowStatus = true}} class="rounded-full w-4/6 m-1 text-white text-light hover:bg-yellow-400 active:hover:drop-shadow-md disabled:active:bg-yellow-500 disabled:bg-yellow-600">Reset</button>
   </div>
 </main>
