@@ -12,6 +12,7 @@
     "schedules",
     "professor overview",
     "advising time",
+    "deleted files",
   ];
   let sideMenuStatusChange = () => sideMenuStatus.set(!$sideMenuStatus);
   let clearSelectedData = () => selectedData.set("");

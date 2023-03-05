@@ -32,6 +32,7 @@
       <!-- <button on:click={() => viewComponentValueChange(5)} class="px-3 py-1 text-lg w-full text-left border-b font-light hover:bg-gray-100 active:bg-gray-200">Subjects</button>   -->
       <button on:click={() => viewComponentValueChange(6)} class="px-3 py-1 text-lg w-full text-left border-b font-light hover:bg-gray-100 active:bg-gray-200">Schedules</button>
       <button on:click={() => viewComponentValueChange(7)} class="px-3 py-1 text-lg w-full text-left border-b font-light hover:bg-gray-100 active:bg-gray-200">Professor Overview</button>
+      <button on:click={() => viewComponentValueChange(9)} class="px-3 py-1 text-lg w-full text-left border-b font-light hover:bg-gray-100 active:bg-gray-200">Deleted Files</button>
     </section>
 
     <button on:click={settingsWindowStatusChange} class="px-3 py-1 text-lg w-full text-left border-t font-light hover:bg-gray-100 active:bg-gray-200">Settings</button>    

@@ -1,39 +1,45 @@
 <script>
-  const { ipcRenderer } = require("electron");
-  import { onDestroy } from "svelte";
-  import { addWindowStatus } from "../../stores/ui";
-  let message = "", windowDisabled = false, fieldDisabled = false;
-  let roomData = {
-    name: "",
+const { ipcRenderer } = require("electron");
+import { onDestroy } from "svelte";
+import { addWindowStatus } from "../../stores/ui";
+import AlertDialog from "../AlertDialog.svelte";
+
+let alertOpen = false;
+let alertOptions = {
+  success: false,
+  message: "Alert Box"
+};
+let message = "", windowDisabled = false, fieldDisabled = false;
+let roomData = {
+  name: "",
+}
+
+$: if (!roomData.name) {
+  fieldDisabled = true;
+} else fieldDisabled = false;
+
+let addWindowStatusChange = () => addWindowStatus.set(!$addWindowStatus);
+let saveData = () => {
+  windowDisabled = true;
+  ipcRenderer.send("save-data-room", roomData);
+};
+
+ipcRenderer.on("save-data-room", (e, res) => {
+  windowDisabled = false;
+  alertOpen = true;
+  alertOptions = res;
+  if (res.success) {
+    roomData =  { name: "" }
   }
+  ipcRenderer.send("retrieve-room-data");
+});
 
-  $: if (!roomData.name) {
-    fieldDisabled = true;
-  } else fieldDisabled = false;
-
-  let addWindowStatusChange = () => addWindowStatus.set(!$addWindowStatus);
-  let saveData = () => {
-    windowDisabled = true;
-    ipcRenderer.send("save-data-room", roomData);
-  };
-
-  ipcRenderer.on("save-data-room", (event, status) => {
-    setTimeout(() => {
-      if (status.success == true) {
-        roomData =  {
-          name: "",
-        }
-      }
-      ipcRenderer.send("retrieve-room-data");
-      message = status.message;
-      windowDisabled = false;
-    }, 2000);
-  });
-
-  onDestroy(() => {
-    ipcRenderer.removeAllListeners("save-data-room");
-  })
+onDestroy(() => {
+  ipcRenderer.removeAllListeners("save-data-room");
+})
 </script>
+
+<AlertDialog bind:alertOpen bind:alertOptions />
 
 <div class="w-full h-full flex flex-col">
   <input bind:value={roomData.name} disabled={windowDisabled} type="text" class="p-2 drop-shadow-md m-2 rounded-md font-light" name="Room" id="room.name" placeholder="Room Name (e.g. Faculty Room)" />

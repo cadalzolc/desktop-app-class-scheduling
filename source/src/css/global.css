@@ -36,3 +36,38 @@ option:focus {
 .mt-3 {
     margin-top: 15px;
 }
+
+.table-excel {
+	display: table;
+	background: #fff;
+}
+
+.table-excel tr {
+	border: 1px solid #991c1c;
+}
+
+.table-excel tr th,
+.table-excel tr td {
+	border-color: #991c1c;
+	border-right-width: thin;
+	padding: 2px 5px;
+}
+
+.table-excel tr td.center {
+	text-align: center;
+}
+
+.table-excel tr td button.btn-icon {
+    width: 14px;
+}
+
+.table-excel tr td svg {
+    width: 16px;
+	margin: 0 auto;
+	cursor: pointer;
+}
+
+.table-excel tr td svg,
+.table-excel tr td button.btn-icon > svg {
+    fill: #991c1c;
+}

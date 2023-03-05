@@ -9,6 +9,14 @@ const SchoolYearSemester = mongoose.Schema({
 		type: String,
 		require: true,
 	},
+	isCompleted: {
+		type: Boolean,
+		require: false,
+	},
+	isActive: {
+		type: Boolean,
+		require: false,
+	},
 });
 
-module.exports = mongoose.model("schoolYearSemester", SchoolYearSemester);
+module.exports = mongoose.model("SchoolYearSemester", SchoolYearSemester);
