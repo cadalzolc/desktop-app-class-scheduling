@@ -30,6 +30,7 @@
 	import ProgramView from "./views/individualViews/ProgramView.svelte";
 	import AdviceTime from "./views/individualViews/AdviceTime.svelte";
 	import ProfessorOverview from "./views/ProfessorOverview.svelte";
+	import SchedulesHistory from "./views/SchedulesHistory.svelte";
 
 	import { viewComponentValue, loadingScreenDone, authenticateComplete, selectedData, sideMenuStatus, addWindowStatus, editWindowStatus, settingsWindowStatus, deleteWindowStatus, deleteWindowScheduleStatus, exitApplicationWindowStatus } from "./stores/ui";
 
@@ -97,6 +98,11 @@
 			sideMenuStatus.set(false);
 			selectedData.set("");
 		}
+		if (e.key == "9" && ($addWindowStatus == false && $editWindowStatus == false && $sideMenuStatus == true)) {
+			viewComponentValue.set(10);
+			sideMenuStatus.set(false);
+			selectedData.set("");
+		}
 	}
 
 </script>
@@ -134,6 +140,8 @@
 				<Schedules />
 			{:else if $viewComponentValue == 7}
 				<ProfessorOverview />
+			{:else if $viewComponentValue == 9}
+				<SchedulesHistory />
 			{/if}
 		{:else}
 			{#if $viewComponentValue == 2}
@@ -147,10 +155,13 @@
 			{/if}
 		{/if}
 	</main>
-	
-	{#if $selectedData == "" || ($viewComponentValue !== 7 || $viewComponentValue !== 8) }
-		<AddButton />
+
+	{#if $viewComponentValue !== 9}
+		{#if $selectedData == "" || ($viewComponentValue !== 7 || $viewComponentValue !== 8) }
+			<AddButton />
+		{/if}
 	{/if}
+	
 {/if}
 
 <style>

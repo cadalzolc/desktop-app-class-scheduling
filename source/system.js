@@ -10,9 +10,13 @@ module.exports = function (win) {
 	const RoomModel = require(`${__dirname}/models/roomModel.js`);
 	const ScheduleModel = require(`${__dirname}/models/scheduleModel.js`);
 	const SettingsModel = require(`${__dirname}/models/settingsModel.js`);
+	const SchoolYearSemester = require(`${__dirname}/models/shoolYearSem.js`);
+	const ScheduleHistory = require(`${__dirname}/models/scheduleHistory.js`);
 
 	let connectedStatus = false;
+	
 	const uri = "mongodb://localhost:27017/dotsystems";
+
 	mongoose.connect(
 		uri,
 		{ useNewUrlParser: true, useUnifiedTopology: true },
@@ -26,10 +30,11 @@ module.exports = function (win) {
 				});
 				if (initialSettingsCheck.length == 0) {
 					try {
+						const curSem = getCurSemester();
 						const newSettingsData = new SettingsModel({
 							uid: "time is gold",
-							schoolYear: "2018",
-							schoolSemester: "0",
+							schoolYear: curSem ? curSem.schoolYear : "No School Year",
+							schoolSemester: curSem ? curSem.schoolSemester : "No Semester",
 							systemPassword: "admin",
 						});
 						await newSettingsData.save();
@@ -40,6 +45,28 @@ module.exports = function (win) {
 			}
 		}
 	);
+
+	async function getCurSemester()  {
+		let result = await SchoolYearSemester
+		.findOne({ 
+			isActive: true 
+		})
+		.then((res) => {
+			return {
+				success: res ? true : false,
+				message: res ? "A record is found" : "No active record found",
+				data: res ? JSON.parse(JSON.stringify(res)) : null
+			}
+		})
+		.catch((err) => {
+			return {
+				success: false,
+				message: err,
+				data: null
+			}
+		});
+		return result;
+	}
 
 	// When the window refreshes, the renderer will request for a connection again.
 	ipcMain.on("loading-screen", () =>
@@ -321,38 +348,6 @@ module.exports = function (win) {
 		} catch (err) {
 			console.log(err);
 			win.webContents.send("retrieve-subject-data", err);
-		}
-	});
-
-	ipcMain.on("retrieve-schedule-data", async (event, course_order = 0 , search = '') => {
-		console.log('retrieve-schedule-data search : ' + search);
-		try {
-			let ScheduleData = await ScheduleModel.find(
-				{
-					"$expr": {
-					  "$regexMatch": {
-						// "input": { "$concat": ["$name.first", " ", "$name.last"] },
-						"input": { "$concat": ["$name" , " ", "$courseData.name" , " ", "$courseData.code" , " ", "$professorData.name.first" , " ", "$professorData.name.last" , " ", "$roomData.name" , " ", "$programData.acronym"] },
-						"regex": search,
-						"options": "i"
-					  }
-					}
-				}					
-			).sort({
-				"courseData.name": course_order,
-				day: 1,
-				"time.start.hours": 1,
-				"time.start.minutes": 1,
-			});
-			// console.log("passed here");
-			// console.log(JSON.parse(JSON.stringify(ScheduleData)));
-			win.webContents.send(
-				"retrieve-schedule-data",
-				JSON.parse(JSON.stringify(ScheduleData))
-			);
-		} catch (err) {
-			console.log(err);
-			win.webContents.send("retrieve-schedule-data", err);
 		}
 	});
 
@@ -673,249 +668,6 @@ module.exports = function (win) {
 		}
 	});
 
-	ipcMain.on("save-data-schedule", async (event, scheduleData) => {
-
-		try {
-			
-			console.log(scheduleData.professorData._id);
-			let scheduleDataGathered = await ScheduleModel.find({
-				"professorData._id": scheduleData.professorData._id,
-			});
-			
-
-			let scheduleDataHours = scheduleData.courseData.hours;
-			scheduleDataGathered.forEach((schedule) => {
-				scheduleDataHours += parseInt(schedule.courseData.hours);
-			});
-			console.log(
-				"Declared Hours: ",
-				scheduleData.professorData.employment.hours
-			);
-			console.log("Hours Consumed: ", scheduleDataHours);
-			if (scheduleData.professorData.employment.hours < scheduleDataHours)
-				throw "Professor has no remaining hours.";
-			console.log(
-				"Sanity Check: ",
-				scheduleData.professorData.employment.hours < scheduleDataHours
-			);
-
-			scheduleDataGathered = await ScheduleModel.find({
-				"roomData._id": scheduleData.roomData._id,
-				day: scheduleData.day,
-				type: scheduleData.type,
-			});
-			let scheduleDataGatheredRoomSanityArray = [];
-			scheduleDataGathered.forEach((schedule) => {
-				let s1 = parseInt(
-					`${scheduleData.time.start.hours}${scheduleData.time.start.minutes}`
-				);
-				let e1 = parseInt(
-					`${scheduleData.time.end.hours}${scheduleData.time.end.minutes}`
-				);
-				let s2 = parseInt(
-					`${schedule.time.start.hours}${schedule.time.start.minutes}`
-				);
-				let e2 = parseInt(
-					`${schedule.time.end.hours}${schedule.time.end.minutes}`
-				);
-
-				console.log("Starting Room Check...");
-				console.log("s1 >= e2: ", s1 >= e2);
-				console.log("s1 > s2: ", s1 > s2);
-				console.log("s1 >= e2 && s1 > s2: ", s1 >= e2 && s1 > s2);
-				console.log("e1 <= s2:", e1 <= s2);
-				console.log("e1 < e2:", e1 < e2);
-				console.log("e1 <= s2 && e1 < e2", e1 <= s2 && e1 < e2);
-
-				console.log("-------------------------------------------");
-
-				console.log(
-					"(s1 >= e2 && s1 > s2) || (e1 <= s2 && e1 < e2):",
-					(s1 >= e2 && s1 > s2) || (e1 <= s2 && e1 < e2)
-				);
-
-				console.log("-------------------------------------------");
-
-				if ((s1 >= e2 && s1 > s2) || (e1 <= s2 && e1 < e2)) {
-					scheduleDataGatheredRoomSanityArray.push(true);
-				} else scheduleDataGatheredRoomSanityArray.push(false);
-			});
-			let roomSanity = true;
-			scheduleDataGatheredRoomSanityArray.forEach((sanity, i) => {
-				console.log(`${i}: ${sanity}`);
-				if (sanity == false) {
-					roomSanity = false;
-				}
-			});
-			if (!roomSanity) throw "Selected room is used around that time.";
-
-			console.log("Continuing to programData...");
-
-			scheduleDataGathered = await ScheduleModel.find({
-				"programData._id": scheduleData.programData._id,
-				day: scheduleData.day,
-			});
-			let scheduleDataGatheredProgramSanityArray = [];
-			scheduleDataGathered.forEach((schedule) => {
-				let s1 = parseInt(
-					`${scheduleData.time.start.hours}${scheduleData.time.start.minutes}`
-				);
-				let e1 = parseInt(
-					`${scheduleData.time.end.hours}${scheduleData.time.end.minutes}`
-				);
-				let s2 = parseInt(
-					`${schedule.time.start.hours}${schedule.time.start.minutes}`
-				);
-				let e2 = parseInt(
-					`${schedule.time.end.hours}${schedule.time.end.minutes}`
-				);
-
-				console.log("Starting Room Check...");
-				console.log("s1 >= e2: ", s1 >= e2);
-				console.log("s1 > s2: ", s1 > s2);
-				console.log("s1 >= e2 && s1 > s2: ", s1 >= e2 && s1 > s2);
-				console.log("e1 <= s2:", e1 <= s2);
-				console.log("e1 < e2:", e1 < e2);
-				console.log("e1 <= s2 && e1 < e2", e1 <= s2 && e1 < e2);
-
-				console.log("-------------------------------------------");
-
-				console.log(
-					"(s1 >= e2 && s1 > s2) || (e1 <= s2 && e1 < e2):",
-					(s1 >= e2 && s1 > s2) || (e1 <= s2 && e1 < e2)
-				);
-
-				console.log("-------------------------------------------");
-
-				if ((s1 >= e2 && s1 > s2) || (e1 <= s2 && e1 < e2)) {
-					scheduleDataGatheredProgramSanityArray.push(true);
-				} else scheduleDataGatheredProgramSanityArray.push(false);
-			});
-			let programSanity = true;
-			scheduleDataGatheredProgramSanityArray.forEach((sanity, i) => {
-				console.log(`${i}: ${sanity}`);
-				if (sanity == false) {
-					programSanity = false;
-				}
-			});
-			if (!programSanity) throw "Selected program is busy around that time.";
-
-			console.log("Continuing to professorData...");
-
-			scheduleDataGathered = await ScheduleModel.find({
-				"professorData._id": scheduleData.professorData._id,
-				day: scheduleData.day,
-			});
-			let scheduleDataGatheredProfessorSanityArray = [];
-			scheduleDataGathered.forEach((schedule) => {
-				let s1 = parseInt(
-					`${scheduleData.time.start.hours}${scheduleData.time.start.minutes}`
-				);
-				let e1 = parseInt(
-					`${scheduleData.time.end.hours}${scheduleData.time.end.minutes}`
-				);
-				let s2 = parseInt(
-					`${schedule.time.start.hours}${schedule.time.start.minutes}`
-				);
-				let e2 = parseInt(
-					`${schedule.time.end.hours}${schedule.time.end.minutes}`
-				);
-
-				console.log("Starting Room Check...");
-				console.log("s1 >= e2: ", s1 >= e2);
-				console.log("s1 > s2: ", s1 > s2);
-				console.log("s1 >= e2 && s1 > s2: ", s1 >= e2 && s1 > s2);
-				console.log("e1 <= s2:", e1 <= s2);
-				console.log("e1 < e2:", e1 < e2);
-				console.log("e1 <= s2 && e1 < e2", e1 <= s2 && e1 < e2);
-
-				console.log("-------------------------------------------");
-
-				console.log(
-					"(s1 >= e2 && s1 > s2) || (e1 <= s2 && e1 < e2):",
-					(s1 >= e2 && s1 > s2) || (e1 <= s2 && e1 < e2)
-				);
-
-				console.log("-------------------------------------------");
-
-				if ((s1 >= e2 && s1 > s2) || (e1 <= s2 && e1 < e2)) {
-					scheduleDataGatheredProfessorSanityArray.push(true);
-				} else scheduleDataGatheredProfessorSanityArray.push(false);
-			});
-			let professorSanity = true;
-			scheduleDataGatheredProfessorSanityArray.forEach((sanity, i) => {
-				console.log(`${i}: ${sanity}`);
-				if (sanity == false) {
-					professorSanity = false;
-				}
-			});
-			if (!professorSanity) throw "Professor is busy around that time.";
-
-			const newScheduleData = new ScheduleModel({
-				day: scheduleData.day,
-				name: scheduleData.name,
-				type: scheduleData.type,
-				time: {
-					start: {
-						hours: scheduleData.time.start.hours,
-						minutes: scheduleData.time.start.minutes,
-					},
-					end: {
-						hours: scheduleData.time.end.hours,
-						minutes: scheduleData.time.end.minutes,
-					},
-				},
-				school: {
-					year: scheduleData.school.year,
-					semester: scheduleData.school.semester,
-				},
-				courseData: {
-					_id: scheduleData.courseData._id,
-					name: scheduleData.courseData.name,
-					code: scheduleData.courseData.code,
-					units: scheduleData.courseData.units,
-					hours: scheduleData.courseData.hours,
-				},
-				professorData: {
-					_id: scheduleData.professorData._id,
-					name: {
-						first: scheduleData.professorData.name.first,
-						last: scheduleData.professorData.name.last,
-					},
-					address: scheduleData.professorData.address,
-					employment: {
-						status: scheduleData.professorData.employment.status,
-						hours: scheduleData.professorData.employment.hours,
-					},
-					gender: scheduleData.professorData.gender,
-					contact: scheduleData.professorData.contact,
-				},
-				programData: {
-					_id: scheduleData.programData._id,
-					name: scheduleData.programData.name,
-					acronym: scheduleData.programData.acronym,
-					year: scheduleData.programData.year,
-					section: scheduleData.programData.section,
-				},
-				roomData: {
-					_id: scheduleData.roomData._id,
-					name: scheduleData.roomData.name,
-				},
-			});
-			await newScheduleData.save();
-			win.webContents.send("save-data-schedule", {
-				success: true,
-				message: "Added successfully.",
-			});
-		} catch (err) {
-			console.log(err);
-			win.webContents.send("save-data-schedule", {
-				success: false,
-				message: err,
-			});
-		}
-	});
-
 	ipcMain.on("edit-data-course", async (event, courseData, selectedData) => {
 		console.log(courseData, selectedData);
 		try {
@@ -972,6 +724,7 @@ module.exports = function (win) {
 			});
 		}
 	});
+
 	ipcMain.on("edit-data-room", async (event, roomData, selectedData) => {
 		try {
 			let roomNameExist = await RoomModel.find({
@@ -1013,6 +766,7 @@ module.exports = function (win) {
 			});
 		}
 	});
+
 	ipcMain.on(
 		"edit-data-professor",
 		async (event, professorData, selectedData) => {
@@ -1062,6 +816,7 @@ module.exports = function (win) {
 			}
 		}
 	);
+
 	ipcMain.on("edit-data-program", async (event, programData, selectedData) => {
 		try {
 			let programExist = await ProgramModel.find({
@@ -1114,6 +869,7 @@ module.exports = function (win) {
 			});
 		}
 	});
+
 	ipcMain.on("edit-data-settings", async (event, settingsData) => {
 		try {
 			await SettingsModel.updateOne(
@@ -1137,6 +893,7 @@ module.exports = function (win) {
 			});
 		}
 	});
+
 	ipcMain.on("edit-data-password", async (event, settingsData) => {
 		try {
 			if (settingsData.systemPassword != settingsData.oldSystemPassword) {
@@ -1190,6 +947,7 @@ module.exports = function (win) {
 			});
 		}
 	});
+
 	ipcMain.on("delete-professor-data", async (event, selectedData) => {
 		try {
 			await ScheduleModel.deleteMany({
@@ -1209,6 +967,7 @@ module.exports = function (win) {
 			});
 		}
 	});
+
 	ipcMain.on("delete-program-data", async (event, selectedData) => {
 		try {
 			await ScheduleModel.deleteMany({
@@ -1228,6 +987,7 @@ module.exports = function (win) {
 			});
 		}
 	});
+
 	ipcMain.on("delete-room-data", async (event, selectedData) => {
 		try {
 			await ScheduleModel.deleteMany({
@@ -1247,6 +1007,7 @@ module.exports = function (win) {
 			});
 		}
 	});
+
 	ipcMain.on("delete-course-data", async (event, selectedData) => {
 		try {
 			await ScheduleModel.deleteMany({
@@ -1285,6 +1046,7 @@ module.exports = function (win) {
 			});
 		}
 	});
+
 	ipcMain.on("login-reset", async (event) => {
 		try {
 			await SettingsModel.updateOne(
@@ -2600,6 +2362,7 @@ module.exports = function (win) {
 			wb.write(savePathSelected.filePath);
 		}
 	});
+
 	ipcMain.on("export-to-excel-program", async (event, selectedData) => {
 		console.log(selectedData);
 		let savePathSelected = await dialog.showSaveDialog({
@@ -2999,7 +2762,7 @@ module.exports = function (win) {
 		}
 	});
 
-	ipcMain.on("get-professor-list", async (event) => {
+	ipcMain.on("professor-list", async (event) => {
 		let result = await ProfessorModel
 			.find({})
 			.sort({ "name.first": -1 })
@@ -3014,13 +2777,33 @@ module.exports = function (win) {
 				return {
 					success: false,
 					message: err,
-					data: null
+					data: []
 				}
 			});
-		win.webContents.send("get-professor-list", result);
+		win.webContents.send("professor-list", result);
 	});
 
-	ipcMain.on("get-room-list", async (event) => {
+	ipcMain.on("professor-schedule", async (event, data) => {
+		let result = await ScheduleModel
+			.find({"professorData._id": data._id})
+			.then((res) => {
+				return {
+					success: true,
+					message: `${res.length} record found`,
+					data: JSON.parse(JSON.stringify(res))
+				}
+			})
+			.catch((err) => {
+				return {
+					success: false,
+					message: err,
+					data: []
+				}
+			});
+		win.webContents.send("professor-schedule", result);
+	});
+
+	ipcMain.on("room-list", async (event) => {
 		let result = await RoomModel
 			.find({})
 			.sort({ "name": -1 })
@@ -3035,13 +2818,13 @@ module.exports = function (win) {
 				return {
 					success: false,
 					message: err,
-					data: null
+					data: []
 				}
 			});
-		win.webContents.send("get-room-list", result);
+		win.webContents.send("room-list", result);
 	});
 
-	ipcMain.on("get-courses-list", async (event) => {
+	ipcMain.on("courses-list", async (event) => {
 		let result = await CourseModel
 			.find({})
 			.sort({ "name": -1 })
@@ -3056,13 +2839,13 @@ module.exports = function (win) {
 				return {
 					success: false,
 					message: err,
-					data: null
+					data: []
 				}
 			});
-		win.webContents.send("get-courses-list", result);
+		win.webContents.send("courses-list", result);
 	});
 
-	ipcMain.on("get-program-list", async (event) => {
+	ipcMain.on("program-list", async (event) => {
 		let result = await ProgramModel
 			.find({})
 			.sort({ "name": -1 })
@@ -3077,10 +2860,455 @@ module.exports = function (win) {
 				return {
 					success: false,
 					message: err,
-					data: null
+					data: []
 				}
 			});
-		win.webContents.send("get-program-list", result);
+		win.webContents.send("program-list", result);
 	});
 
+	ipcMain.on("schedule-list", async (event) => {
+		let result = await ScheduleModel
+			.find({})
+			.sort({"courseData.name": 0, day: 1, "time.start.hours": 1, "time.start.minutes": 1})
+			.then((res) => {
+				return {
+					success: true,
+					message: `${res.length} record found`,
+					data: JSON.parse(JSON.stringify(res))
+				}
+			})
+			.catch((err) => {
+				return {
+					success: false,
+					message: err,
+					data: []
+				}
+			});
+		win.webContents.send("schedule-list", result);
+	});
+
+	ipcMain.on("schedule-history-list", async (event) => {
+		let result = await ScheduleHistory
+			.find({})
+			.sort({"stamp": 0})
+			.then((res) => {
+				return {
+					success: true,
+					message: `${res.length} record found`,
+					data: JSON.parse(JSON.stringify(res))
+				}
+			})
+			.catch((err) => {
+				return {
+					success: false,
+					message: err,
+					data: []
+				}
+			});
+		win.webContents.send("schedule-history-list", result);
+	});
+
+	ipcMain.on("schedule-delete-single", async (event, data) => {
+		try {
+
+			console.log(data);
+
+			await ScheduleModel.deleteOne({
+				_id: data._id,
+			});
+
+			const newHistory = ScheduleHistory({
+				schedule: data,
+				stamp: new Date()
+			});
+			await newHistory.save();
+
+			win.webContents.send("schedule-delete-single", {
+				success: true,
+				message: "School year semester is successfully deleted",
+			});
+		} catch (err) {
+			win.webContents.send("schedule-delete-single", {
+				success: false,
+				message: "Failed to delete the school year semester. " + err,
+			});
+		}
+	});
+
+	ipcMain.on("sy-list", async (event) => {
+		let result = await SchoolYearSemester
+			.find({})
+			.sort({ "schoolYear": -1 })
+			.then((res) => {
+				return {
+					success: true,
+					message: `${res.length} record found`,
+					data: JSON.parse(JSON.stringify(res))
+				}
+			})
+			.catch((err) => {
+				return {
+					success: false,
+					message: err,
+					data: []
+				}
+			});
+		win.webContents.send("sy-list", result);
+	});
+
+	ipcMain.on("sy-add", async (event, data) => {
+		try {
+			const Sy = `${data.SY_Start}-${data.SY_End}`;
+			const newData = new SchoolYearSemester({
+				schoolYear: Sy,
+				schoolSemester: data.SY_Sem,
+				isCompleted: false,
+				isActive: false
+			});
+			await newData.save();
+			win.webContents.send("sy-add", {
+				success: true,
+				message: "School year semester is successfully added",
+			});
+		} catch (err) {
+			win.webContents.send("sy-add", {
+				success: false,
+				message: "Failed to save school year semester. " + err,
+			});
+		}
+	});
+
+	ipcMain.on("sy-delete", async (event, data) => {
+		try {
+			await SchoolYearSemester.deleteOne({
+				_id: data._id,
+			});
+			win.webContents.send("sy-delete", {
+				success: true,
+				message: "School year semester is successfully deleted",
+			});
+		} catch (err) {
+			win.webContents.send("sy-delete", {
+				success: false,
+				message: "Failed to delete the school year semester. " + err,
+			});
+		}
+	});
+
+	ipcMain.on("sy-update", async (event, data) => {
+		try {
+			await SchoolYearSemester.findByIdAndUpdate(data._id, {
+				schoolYear: data.schoolYear,
+				schoolSemester: data.schoolSemester,
+				isCompleted: data.isCompleted,
+				isActive: data.isActive
+			}, {new: true});
+			win.webContents.send("sy-update", {
+				success: true,
+				message: "School year semester is successfully updated",
+				data: data
+			});
+		} catch (err) {
+			win.webContents.send("sy-update", {
+				success: false,
+				message: "Failed to update school year semester. " + err,
+			});
+		}
+	});
+
+	ipcMain.on("sy-active", async (event, data) => {
+		let result = await SchoolYearSemester
+		.findOne({ 
+			isActive: true 
+		})
+		.then((res) => {
+			return {
+				success: res ? true : false,
+				message: res ? "A record is found" : "No active record found",
+				data: res ? JSON.parse(JSON.stringify(res)) : null
+			}
+		})
+		.catch((err) => {
+			return {
+				success: false,
+				message: err,
+				data: null
+			}
+		});
+		win.webContents.send("sy-active", result);
+	});
+
+	ipcMain.on("save-data-schedule", async (event, scheduleData) => {
+		try {
+
+			let scheduleDataGathered = await ScheduleModel.find({
+				"professorData._id": scheduleData.professorData._id,
+			});
+			
+			let scheduleDataHours = scheduleData.courseData.hours;
+			scheduleDataGathered.forEach((schedule) => {
+				scheduleDataHours += parseInt(schedule.courseData.hours);
+			});
+			console.log(
+				"Declared Hours: ",
+				scheduleData.professorData.employment.hours
+			);
+			console.log("Hours Consumed: ", scheduleDataHours);
+			if (scheduleData.professorData.employment.hours < scheduleDataHours)
+				throw "Professor has no remaining hours.";
+			console.log(
+				"Sanity Check: ",
+				scheduleData.professorData.employment.hours < scheduleDataHours
+			);
+
+			scheduleDataGathered = await ScheduleModel.find({
+				"roomData._id": scheduleData.roomData._id,
+				day: scheduleData.day,
+				type: scheduleData.type,
+			});
+
+			let scheduleDataGatheredRoomSanityArray = [];
+			scheduleDataGathered.forEach((schedule) => {
+				let s1 = parseInt(
+					`${scheduleData.time.start.hours}${scheduleData.time.start.minutes}`
+				);
+				let e1 = parseInt(
+					`${scheduleData.time.end.hours}${scheduleData.time.end.minutes}`
+				);
+				let s2 = parseInt(
+					`${schedule.time.start.hours}${schedule.time.start.minutes}`
+				);
+				let e2 = parseInt(
+					`${schedule.time.end.hours}${schedule.time.end.minutes}`
+				);
+
+				console.log("Starting Room Check...");
+				console.log("s1 >= e2: ", s1 >= e2);
+				console.log("s1 > s2: ", s1 > s2);
+				console.log("s1 >= e2 && s1 > s2: ", s1 >= e2 && s1 > s2);
+				console.log("e1 <= s2:", e1 <= s2);
+				console.log("e1 < e2:", e1 < e2);
+				console.log("e1 <= s2 && e1 < e2", e1 <= s2 && e1 < e2);
+
+				console.log("-------------------------------------------");
+
+				console.log(
+					"(s1 >= e2 && s1 > s2) || (e1 <= s2 && e1 < e2):",
+					(s1 >= e2 && s1 > s2) || (e1 <= s2 && e1 < e2)
+				);
+
+				console.log("-------------------------------------------");
+
+				if ((s1 >= e2 && s1 > s2) || (e1 <= s2 && e1 < e2)) {
+					scheduleDataGatheredRoomSanityArray.push(true);
+				} else scheduleDataGatheredRoomSanityArray.push(false);
+			});
+			let roomSanity = true;
+			scheduleDataGatheredRoomSanityArray.forEach((sanity, i) => {
+				console.log(`${i}: ${sanity}`);
+				if (sanity == false) {
+					roomSanity = false;
+				}
+			});
+			if (!roomSanity) throw "Selected room is used around that time.";
+
+			console.log("Continuing to programData...");
+
+			scheduleDataGathered = await ScheduleModel.find({
+				"programData._id": scheduleData.programData._id,
+				day: scheduleData.day,
+			});
+			let scheduleDataGatheredProgramSanityArray = [];
+			scheduleDataGathered.forEach((schedule) => {
+				let s1 = parseInt(
+					`${scheduleData.time.start.hours}${scheduleData.time.start.minutes}`
+				);
+				let e1 = parseInt(
+					`${scheduleData.time.end.hours}${scheduleData.time.end.minutes}`
+				);
+				let s2 = parseInt(
+					`${schedule.time.start.hours}${schedule.time.start.minutes}`
+				);
+				let e2 = parseInt(
+					`${schedule.time.end.hours}${schedule.time.end.minutes}`
+				);
+
+				console.log("Starting Room Check...");
+				console.log("s1 >= e2: ", s1 >= e2);
+				console.log("s1 > s2: ", s1 > s2);
+				console.log("s1 >= e2 && s1 > s2: ", s1 >= e2 && s1 > s2);
+				console.log("e1 <= s2:", e1 <= s2);
+				console.log("e1 < e2:", e1 < e2);
+				console.log("e1 <= s2 && e1 < e2", e1 <= s2 && e1 < e2);
+
+				console.log("-------------------------------------------");
+
+				console.log(
+					"(s1 >= e2 && s1 > s2) || (e1 <= s2 && e1 < e2):",
+					(s1 >= e2 && s1 > s2) || (e1 <= s2 && e1 < e2)
+				);
+
+				console.log("-------------------------------------------");
+
+				if ((s1 >= e2 && s1 > s2) || (e1 <= s2 && e1 < e2)) {
+					scheduleDataGatheredProgramSanityArray.push(true);
+				} else scheduleDataGatheredProgramSanityArray.push(false);
+			});
+			let programSanity = true;
+			scheduleDataGatheredProgramSanityArray.forEach((sanity, i) => {
+				console.log(`${i}: ${sanity}`);
+				if (sanity == false) {
+					programSanity = false;
+				}
+			});
+			if (!programSanity) throw "Selected program is busy around that time.";
+
+			console.log("Continuing to professorData...");
+
+			scheduleDataGathered = await ScheduleModel.find({
+				"professorData._id": scheduleData.professorData._id,
+				day: scheduleData.day,
+			});
+			let scheduleDataGatheredProfessorSanityArray = [];
+			scheduleDataGathered.forEach((schedule) => {
+				let s1 = parseInt(
+					`${scheduleData.time.start.hours}${scheduleData.time.start.minutes}`
+				);
+				let e1 = parseInt(
+					`${scheduleData.time.end.hours}${scheduleData.time.end.minutes}`
+				);
+				let s2 = parseInt(
+					`${schedule.time.start.hours}${schedule.time.start.minutes}`
+				);
+				let e2 = parseInt(
+					`${schedule.time.end.hours}${schedule.time.end.minutes}`
+				);
+
+				console.log("Starting Room Check...");
+				console.log("s1 >= e2: ", s1 >= e2);
+				console.log("s1 > s2: ", s1 > s2);
+				console.log("s1 >= e2 && s1 > s2: ", s1 >= e2 && s1 > s2);
+				console.log("e1 <= s2:", e1 <= s2);
+				console.log("e1 < e2:", e1 < e2);
+				console.log("e1 <= s2 && e1 < e2", e1 <= s2 && e1 < e2);
+
+				console.log("-------------------------------------------");
+
+				console.log(
+					"(s1 >= e2 && s1 > s2) || (e1 <= s2 && e1 < e2):",
+					(s1 >= e2 && s1 > s2) || (e1 <= s2 && e1 < e2)
+				);
+
+				console.log("-------------------------------------------");
+
+				if ((s1 >= e2 && s1 > s2) || (e1 <= s2 && e1 < e2)) {
+					scheduleDataGatheredProfessorSanityArray.push(true);
+				} else scheduleDataGatheredProfessorSanityArray.push(false);
+			});
+			let professorSanity = true;
+			scheduleDataGatheredProfessorSanityArray.forEach((sanity, i) => {
+				console.log(`${i}: ${sanity}`);
+				if (sanity == false) {
+					professorSanity = false;
+				}
+			});
+			if (!professorSanity) throw "Professor is busy around that time.";
+			
+			const newScheduleData = new ScheduleModel({
+				day: scheduleData.day,
+				name: scheduleData.name,
+				type: scheduleData.type,
+				time: {
+					start: {
+						hours: scheduleData.time.start.hours,
+						minutes: scheduleData.time.start.minutes,
+					},
+					end: {
+						hours: scheduleData.time.end.hours,
+						minutes: scheduleData.time.end.minutes,
+					},
+				},
+				school: {
+					year: scheduleData.school.year,
+					semester: scheduleData.school.semester,
+				},
+				courseData: {
+					_id: scheduleData.courseData._id,
+					name: scheduleData.courseData.name,
+					code: scheduleData.courseData.code,
+					units: scheduleData.courseData.units,
+					hours: scheduleData.courseData.hours,
+				},
+				professorData: {
+					_id: scheduleData.professorData._id,
+					name: {
+						first: scheduleData.professorData.name.first,
+						last: scheduleData.professorData.name.last,
+					},
+					address: scheduleData.professorData.address,
+					employment: {
+						status: scheduleData.professorData.employment.status,
+						hours: scheduleData.professorData.employment.hours,
+					},
+					gender: scheduleData.professorData.gender,
+					contact: scheduleData.professorData.contact,
+				},
+				programData: {
+					_id: scheduleData.programData._id,
+					name: scheduleData.programData.name,
+					acronym: scheduleData.programData.acronym,
+					year: scheduleData.programData.year,
+					section: scheduleData.programData.section,
+				},
+				roomData: {
+					_id: scheduleData.roomData._id,
+					name: scheduleData.roomData.name,
+				},
+			});
+			await newScheduleData.save();
+			
+			win.webContents.send("save-data-schedule", {
+				success: true,
+				message: `${scheduleData.programData.acronym} is successfully added to ${scheduleData.professorData.name.first} - ${scheduleData.professorData.name.last}`,
+			});
+		} catch (err) {
+			win.webContents.send("save-data-schedule", {
+				success: false,
+				message: err,
+			});
+		}
+	});
+
+	ipcMain.on("retrieve-schedule-data", async (event, course_order = 0 , search = '') => {
+		try {
+			let result = await ScheduleModel.find(
+				{
+					"$expr": {
+					  "$regexMatch": {
+						"input": { "$concat": ["$name" , " ", "$courseData.name" , " ", "$courseData.code" , " ", "$professorData.name.first" , " ", "$professorData.name.last" , " ", "$roomData.name" , " ", "$programData.acronym"] },
+						"regex": search,
+						"options": "i"
+					  }
+					}
+				}					
+			)
+			.sort({
+				"courseData.name": course_order,
+				day: 1,
+				"time.start.hours": 1,
+				"time.start.minutes": 1,
+			});
+			win.webContents.send("retrieve-schedule-data",{
+				success: false,
+				message: "",
+				data: JSON.parse(JSON.stringify(result))
+			});
+		} catch (err) {
+			win.webContents.send("retrieve-schedule-data", {
+				success: false,
+				message: err,
+				data: []
+			});
+		}
+	});
 };

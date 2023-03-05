@@ -1,10 +1,73 @@
 <script>
-    const { ipcRenderer } = require("electron");
-    import { onDestroy } from "svelte";
-    import { editWindowStatus, selectedData , tbdData } from "../../stores/ui";
-    let message = "", windowDisabled = false, fieldDisabled = false;
-    let scheduleTimeHourStart, scheduleTimeMinuteStart, scheduleTimePostfixStart, scheduleTimeHourEnd, scheduleTimeMinuteEnd, scheduleTimePostfixEnd, scheduleCourse, scheduleProgram, scheduleRoom;
-    let scheduleData = {
+const { ipcRenderer } = require("electron");
+
+import { onDestroy } from "svelte";
+import { editWindowStatus , tbdData } from "../../stores/ui";
+import AlertDialog from "../AlertDialog.svelte";
+
+let alertOpen = false;
+let alertOptions = {
+  success: false,
+  message: "Alert Box"
+};
+let message = "", windowDisabled = false, fieldDisabled = false;
+let scheduleTimeHourStart, scheduleTimeMinuteStart, scheduleTimePostfixStart, scheduleTimeHourEnd, scheduleTimeMinuteEnd, scheduleTimePostfixEnd, scheduleCourse, scheduleProgram, scheduleRoom;
+let scheduleData = {
+    type : 'edit',
+    _id: $tbdData._id,
+    day: $tbdData.day,
+    time: {
+        start: {
+            hours: $tbdData.time.start.hours,
+            minutes: $tbdData.time.start.minutes,
+        },
+        end: {
+            hours: $tbdData.time.end.hours,
+            minutes: $tbdData.time.start.minutes,
+        }
+    },
+}
+
+let editWindowStatusChange = () => editWindowStatus.set(!$editWindowStatus);
+let saveData = () => {
+    if (scheduleTimePostfixStart == "PM") {
+        if (scheduleTimeHourStart != 12)
+        scheduleData.time.start.hours = scheduleTimeHourStart + 12;
+        else scheduleData.time.start.hours = 12;
+    } else {
+        if (scheduleTimeHourStart + 12 == 24) {
+        scheduleData.time.start.hours = 0;
+        } else {
+        scheduleData.time.start.hours = scheduleTimeHourStart;
+        }
+    }
+    if (scheduleTimePostfixEnd == "PM") {
+        if (scheduleTimeHourEnd != 12)
+        scheduleData.time.end.hours = scheduleTimeHourEnd + 12;
+        else scheduleData.time.end.hours = 12;
+    } else {
+        if (scheduleTimeHourEnd + 12 == 24) {
+        scheduleData.time.end.hours = 0;
+        } else {
+        scheduleData.time.end.hours = scheduleTimeHourEnd;
+        }
+    }
+    scheduleData.time.start.minutes = scheduleTimeMinuteStart;
+    scheduleData.time.end.minutes = scheduleTimeMinuteEnd;
+    scheduleData.type = 'edit';
+
+    windowDisabled = true;
+
+    ipcRenderer.send("save-data-professor-advisetime", scheduleData);
+};
+
+ipcRenderer.on("save-data-professor-advisetime", (e, res) => {
+  windowDisabled = false;
+  alertOpen = true;
+  alertOptions = res;
+
+  if (res.success) {        
+    scheduleData = {
         type : 'edit',
         _id: $tbdData._id,
         day: $tbdData.day,
@@ -19,72 +82,18 @@
             }
         },
     }
-  
-    let editWindowStatusChange = () => editWindowStatus.set(!$editWindowStatus);
-    let saveData = () => {
-        if (scheduleTimePostfixStart == "PM") {
-            if (scheduleTimeHourStart != 12)
-            scheduleData.time.start.hours = scheduleTimeHourStart + 12;
-            else scheduleData.time.start.hours = 12;
-        } else {
-            if (scheduleTimeHourStart + 12 == 24) {
-            scheduleData.time.start.hours = 0;
-            } else {
-            scheduleData.time.start.hours = scheduleTimeHourStart;
-            }
-        }
-        if (scheduleTimePostfixEnd == "PM") {
-            if (scheduleTimeHourEnd != 12)
-            scheduleData.time.end.hours = scheduleTimeHourEnd + 12;
-            else scheduleData.time.end.hours = 12;
-        } else {
-            if (scheduleTimeHourEnd + 12 == 24) {
-            scheduleData.time.end.hours = 0;
-            } else {
-            scheduleData.time.end.hours = scheduleTimeHourEnd;
-            }
-        }
-        scheduleData.time.start.minutes = scheduleTimeMinuteStart;
-        scheduleData.time.end.minutes = scheduleTimeMinuteEnd;
-        scheduleData.type = 'edit';
 
-        windowDisabled = true;
-        // ipcRenderer.send("save-data-professor-advisetime", scheduleData , type = 'add');
-        ipcRenderer.send("save-data-professor-advisetime", scheduleData);
-    };
-  
-    ipcRenderer.on("save-data-professor-advisetime", (event, status) => {
-      setTimeout(() => {
-        if (status.success == true) {        
-            scheduleData = {
-                type : 'edit',
-                _id: $tbdData._id,
-                day: $tbdData.day,
-                time: {
-                    start: {
-                        hours: $tbdData.time.start.hours,
-                        minutes: $tbdData.time.start.minutes,
-                    },
-                    end: {
-                        hours: $tbdData.time.end.hours,
-                        minutes: $tbdData.time.start.minutes,
-                    }
-                },
-            }
+    $tbdData.advisingTime = res.data;
+    ipcRenderer.send("retrieve-professor-data-advisetime" , $tbdData._id);
+  }
+})
 
-            $tbdData.advisingTime = status.data;
-            ipcRenderer.send("retrieve-professor-data-advisetime" , $tbdData._id);
-        }        
+onDestroy(() => {
+  ipcRenderer.removeAllListeners("save-data-professor-advisetime");
+})
+</script>
 
-        message = status.message;
-        windowDisabled = false;
-      }, 2000);
-    })
-  
-    onDestroy(() => {
-      ipcRenderer.removeAllListeners("save-data-professor-advisetime");
-    })
-  </script>
+  <AlertDialog bind:alertOpen bind:alertOptions />
   
   <div class="w-full h-full flex flex-col">
     <div class="w-full flex flex-row">

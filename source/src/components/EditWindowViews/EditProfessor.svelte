@@ -2,6 +2,13 @@
   const { ipcRenderer } = require("electron");
   import { onDestroy } from "svelte";
   import { editWindowStatus, selectedData } from "../../stores/ui";
+  import AlertDialog from "../AlertDialog.svelte";
+
+  let alertOpen = false;
+  let alertOptions = {
+    success: false,
+    message: "Alert Box"
+  };
   let message = "", windowDisabled = false, fieldDisabled = false;
   let professorData = {
     _id: $selectedData._id,
@@ -10,6 +17,7 @@
       last: $selectedData.name.last,
     },
     address: $selectedData.address,
+    email: $selectedData.email,
     employment: {
       status: $selectedData.employment.status,
       hours: $selectedData.employment.hours,
@@ -22,45 +30,42 @@
   $: if (!professorData.name.first || !professorData.name.last || !professorData.address || !professorData.employment.status || !professorData.employment.hours || !professorData.gender || !professorData.contact || !professorData.status) {
     fieldDisabled = true;
   } else fieldDisabled = false;
-
-  $: {
-    console.log(professorData)
-    console.log($selectedData)
-  }
-
+ 
   let editWindowStatusChange = () => editWindowStatus.set(!$editWindowStatus);
   let saveData = () => {
     windowDisabled = true;
     ipcRenderer.send("edit-data-professor", professorData, $selectedData);
   };
 
-  ipcRenderer.on("edit-data-professor", (event, status) => {
-    setTimeout(() => {
-      if (status.success == true) {
-        $selectedData.name.first = professorData.name.first;
-        $selectedData.name.last = professorData.name.last;
-        $selectedData.address = professorData.address;
-        $selectedData.employment.status = professorData.employment.status;
-        $selectedData.employment.hours = professorData.employment.hours;
-        $selectedData.gender = professorData.gender;
-        $selectedData.contact = professorData.contact;
-        $selectedData.status = professorData.status;
-      }
-      message = status.message;
-      windowDisabled = false;
-    }, 2000);
-  })
+ipcRenderer.on("edit-data-professor", (e, res) => {
+  windowDisabled = false;
+  alertOpen = true;
+  alertOptions = res;
+  if (res.success) {
+      $selectedData.name.first = professorData.name.first;
+      $selectedData.name.last = professorData.name.last;
+      $selectedData.address = professorData.address;
+      $selectedData.employment.status = professorData.employment.status;
+      $selectedData.employment.hours = professorData.employment.hours;
+      $selectedData.gender = professorData.gender;
+      $selectedData.contact = professorData.contact;
+      $selectedData.status = professorData.status;
+    }
+});
 
-  onDestroy(() => {
-    ipcRenderer.removeAllListeners("edit-data-professor");
-  })
+onDestroy(() => {
+  ipcRenderer.removeAllListeners("edit-data-professor");
+})
 </script>
+
+<AlertDialog bind:alertOpen bind:alertOptions />
 
 <div class="w-full h-full flex flex-col">
   <div class="w-full flex">
     <input bind:value={professorData.name.first} disabled={windowDisabled} type="text" class="p-2 w-full drop-shadow-md m-2 rounded-md font-light" name="Professor" id="professor.name.first" placeholder="Professor First Name" />
     <input bind:value={professorData.name.last} disabled={windowDisabled} type="text" class="p-2 w-full drop-shadow-md m-2 rounded-md font-light" name="Professor" id="professor.name.last" placeholder="Professor Last Name" />
   </div>
+  <input bind:value={professorData.email} disabled={windowDisabled} type="text" class="p-2 drop-shadow-md m-2 rounded-md font-light" name="Professor" id="professor.email" placeholder="Professor Email Address" />
   <input bind:value={professorData.address} disabled={windowDisabled} type="text" class="p-2 drop-shadow-md m-2 rounded-md font-light" name="Professor" id="professor.address" placeholder="Professor Address" />
   <input bind:value={professorData.contact} disabled={windowDisabled} type="text" class="p-2 drop-shadow-md m-2 rounded-md font-light" name="Professor" id="professor.contact" placeholder="Professor Phone Number" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');" />
   <p class="px-2 mx-2 rounded-md font-light">Select Gender:</p>

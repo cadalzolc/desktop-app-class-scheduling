@@ -15,7 +15,12 @@
     "Time to pack your stuff and head back home. We can continue tomorrow.",
     "A well-rested worker is an efficient worker."
   ];
-
+  let curSy = {
+    schoolYear: "",
+    schoolSemester: "",
+    isCompleted: false,
+    isActive: false,
+  };
   let dashboardData = {
 			coursesNumber: 0,
 			professorsNumber: 0,
@@ -69,6 +74,14 @@
     ipcRenderer.send("retrieve-dashboard-subject");
     ipcRenderer.send("retrieve-dashboard-schedule");
     ipcRenderer.send("retrieve-settings-data");
+    ipcRenderer.send("sy-active");
+  });
+
+  ipcRenderer.on("sy-active", (e, res) => {
+    if (res.success) {
+      curSy = res.data;
+      return;
+    }
   });
 
   ipcRenderer.on("retrieve-dashboard-course", (event, res) => {
@@ -97,9 +110,7 @@
     ipcRenderer.removeAllListeners("retrieve-dashboard-schedule");
   });    
   
-
   ipcRenderer.on("retrieve-settings-data", (event, res) => {
-    console.log(res)
     $settingsData.uid = res[0].uid;
     $settingsData.schoolYear = res[0].schoolYear;
     $settingsData.schoolSemester = res[0].schoolSemester;
@@ -109,6 +120,7 @@
 
   onDestroy(async () => {
    clearInterval(timeTick);
+   ipcRenderer.removeAllListeners("sy-active");
   });
 </script>
 
@@ -120,7 +132,7 @@
   <div class="h-auto w-full bg-gray-200 rounded-md drop-shadow-md flex flex-col justify-end items-end">
     <div class="h-52 w-full p-4 flex flex-col justify-end">
       <h1 class="text-4xl font-light mb-1">Welcome, it is currently {hours}:{minutes}:{seconds} {postfixTime}.</h1>
-      <h2 class="mb-2 text-gray-700">A.Y. {$settingsData.schoolYear} - {parseInt($settingsData.schoolYear) + 1} {$settingsData.schoolSemester == 0 ? "1st Sem" : $settingsData.schoolSemester == 1 ? "2nd Sem" : "Summer"} · "{greetings[messageIndex]}"</h2>
+      <h2 class="mb-2 text-gray-700">A.Y. {curSy.schoolYear} {curSy.schoolSemester} · "{greetings[messageIndex]}"</h2>
     </div>
     <nav class="grid grid-flow-col w-full self-center bg-gray-300">
       <button on:click={() => viewComponentValueChange(1)} class="p-1 border-t-2 font-light border-gray-300 hover:border-gray-400 active:bg-gray-400 active:border-gray-400 active:text-white">Courses</button>
@@ -129,6 +141,7 @@
       <button on:click={() => viewComponentValueChange(4)} class="p-1 border-t-2 font-light border-gray-300 hover:border-gray-400 active:bg-gray-400 active:border-gray-400 active:text-white">Programs</button>
       <button on:click={() => viewComponentValueChange(6)} class="p-1 border-t-2 font-light border-gray-300 hover:border-gray-400 active:bg-gray-400 active:border-gray-400 active:text-white">Schedules</button>
       <button on:click={() => viewComponentValueChange(7)} class="p-1 border-t-2 font-light border-gray-300 hover:border-gray-400 active:bg-gray-400 active:border-gray-400 active:text-white">Professor Overview</button>
+      <button on:click={() => viewComponentValueChange(10)} class="p-1 border-t-2 font-light border-gray-300 hover:border-gray-400 active:bg-gray-400 active:border-gray-400 active:text-white">Deleted Files</button>
     </nav>
   </div>
 

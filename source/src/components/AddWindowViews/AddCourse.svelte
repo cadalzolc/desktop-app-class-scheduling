@@ -2,6 +2,13 @@
   const { ipcRenderer } = require("electron");
   import { onDestroy } from "svelte";
   import { addWindowStatus } from "../../stores/ui";
+  import AlertDialog from "../AlertDialog.svelte";
+
+  let alertOpen = false;
+  let alertOptions = {
+    success: false,
+    message: "Alert Box"
+  };
   let message = "", windowDisabled = false, fieldDisabled = false;
   let courseData = {
     name: "",
@@ -20,26 +27,27 @@
     ipcRenderer.send("save-data-course", courseData);
   };
 
-  ipcRenderer.on("save-data-course", (event, status) => {
-    setTimeout(() => {
-      if (status.success == true) {
-        courseData = {
-          name: "",
-          code: "",
-          units: "",
-          hours: "",
-        }
-      }
-      ipcRenderer.send("retrieve-course-data");
-      message = status.message;
-      windowDisabled = false;
-    }, 2000);
-  });
+ipcRenderer.on("save-data-course", (e, res) => {
+  windowDisabled = false;
+  alertOpen = true;
+  alertOptions = res;
+  if (res.success == true) {
+    courseData = {
+      name: "",
+      code: "",
+      units: "",
+      hours: "",
+    }
+    ipcRenderer.send("retrieve-course-data");
+  }
+});
 
-  onDestroy(() => {
-    ipcRenderer.removeAllListeners("save-data-course");
-  })
+onDestroy(() => {
+  ipcRenderer.removeAllListeners("save-data-course");
+})
 </script>
+
+<AlertDialog bind:alertOpen bind:alertOptions />
 
 <div class="w-full h-full flex flex-col">
   <input bind:value={courseData.name} disabled={windowDisabled} type="text" class="p-2 drop-shadow-md m-2 rounded-md font-light" name="Course" id="course.name" placeholder="Course Name" />

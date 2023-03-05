@@ -1,43 +1,52 @@
 <script>
-  const { ipcRenderer } = require("electron"); 
-  import { onDestroy } from "svelte";
-  import { editWindowStatus, selectedData } from "../../stores/ui";
-  let message = "", windowDisabled = false, fieldDisabled = false;
-  let programData = {
-    _id: $selectedData._id,
-    name: $selectedData.name,
-    acronym: $selectedData.acronym,
-    year: $selectedData.year,
-    section: $selectedData.section,
+const { ipcRenderer } = require("electron"); 
+
+import { onDestroy } from "svelte";
+import { editWindowStatus, selectedData } from "../../stores/ui";
+import AlertDialog from "../AlertDialog.svelte";
+
+let alertOpen = false;
+let alertOptions = {
+  success: false,
+  message: "Alert Box"
+};
+let message = "", windowDisabled = false, fieldDisabled = false;
+let programData = {
+  _id: $selectedData._id,
+  name: $selectedData.name,
+  acronym: $selectedData.acronym,
+  year: $selectedData.year,
+  section: $selectedData.section,
+}
+
+$: if (!programData.name || !programData.acronym || !programData.year || !programData.section) {
+  fieldDisabled = true;
+} else fieldDisabled = false;
+
+let editWindowStatusChange = () => editWindowStatus.set(!$editWindowStatus);
+let saveData = () => {
+  windowDisabled = true;
+  ipcRenderer.send("edit-data-program", programData, $selectedData);
+}
+
+ipcRenderer.on("edit-data-program", (e, res) => {
+  windowDisabled = false;
+  alertOpen = true;
+  alertOptions = res;
+  if (res.success == true) {
+    $selectedData.name = programData.name;
+    $selectedData.acronym = programData.acronym;
+    $selectedData.year = programData.year;
+    $selectedData.section = programData.section;
   }
+});
 
-  $: if (!programData.name || !programData.acronym || !programData.year || !programData.section) {
-    fieldDisabled = true;
-  } else fieldDisabled = false;
-
-  let editWindowStatusChange = () => editWindowStatus.set(!$editWindowStatus);
-  let saveData = () => {
-    windowDisabled = true;
-    ipcRenderer.send("edit-data-program", programData, $selectedData);
-  }
-
-  ipcRenderer.on("edit-data-program", (event, status) => {
-    setTimeout(() => {
-      if (status.success == true) {
-        $selectedData.name = programData.name;
-        $selectedData.acronym = programData.acronym;
-        $selectedData.year = programData.year;
-        $selectedData.section = programData.section;
-      }
-      message = status.message;
-      windowDisabled = false;
-    }, 2000);
-  });
-
-  onDestroy(() => {
-    ipcRenderer.removeAllListeners("edit-data-program");
-  })
+onDestroy(() => {
+  ipcRenderer.removeAllListeners("edit-data-program");
+})
 </script>
+
+<AlertDialog bind:alertOpen bind:alertOptions />
 
 <div class="w-full h-full flex flex-col">
   <input bind:value={programData.name} disabled={windowDisabled} type="text" class="p-2 drop-shadow-md m-2 rounded-md font-light" name="Program" id="program.name" placeholder="Program Name" />

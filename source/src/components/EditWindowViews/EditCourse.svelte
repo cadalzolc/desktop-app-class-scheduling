@@ -1,38 +1,50 @@
 <script>
-  const { ipcRenderer } = require("electron");
-  import { onDestroy } from "svelte";
-  import { editWindowStatus, selectedData, deleteWindowStatus } from "../../stores/ui";
-  let message = "", windowDisabled = false, fieldDisabled = false;
-  let courseData = {
-    _id: $selectedData._id,
-    name: $selectedData.name,
-    code: $selectedData.code,
-    units: $selectedData.units,
-    hours: $selectedData.hours,
+const { ipcRenderer } = require("electron");
+
+import { onDestroy } from "svelte";
+import { editWindowStatus, selectedData, deleteWindowStatus } from "../../stores/ui";
+import AlertDialog from "../AlertDialog.svelte";
+
+let alertOpen = false;
+let alertOptions = {
+  success: false,
+  message: "Alert Box"
+};
+let message = "", windowDisabled = false, fieldDisabled = false;
+let courseData = {
+  _id: $selectedData._id,
+  name: $selectedData.name,
+  code: $selectedData.code,
+  units: $selectedData.units,
+  hours: $selectedData.hours,
+}
+
+onDestroy(() => {
+  ipcRenderer.removeAllListeners("edit-data-course");
+});
+
+$: if (!courseData.name || !courseData.code || !courseData.units || !courseData.hours) {
+  fieldDisabled = true;
+} else fieldDisabled = false;
+
+let editWindowStatusChange = () => editWindowStatus.set(!$editWindowStatus);
+let saveData = () => {
+  windowDisabled = true;
+  ipcRenderer.send("edit-data-course", courseData, $selectedData);
+};
+
+ipcRenderer.on("edit-data-course", (e, res) => {
+  windowDisabled = false;
+  alertOpen = true;
+  alertOptions = res;
+  if (res.success) {
+    ipcRenderer.send("retrieve-course-data");
   }
+});
 
-  $: if (!courseData.name || !courseData.code || !courseData.units || !courseData.hours) {
-    fieldDisabled = true;
-  } else fieldDisabled = false;
-
-  let editWindowStatusChange = () => editWindowStatus.set(!$editWindowStatus);
-  let saveData = () => {
-    windowDisabled = true;
-    ipcRenderer.send("edit-data-course", courseData, $selectedData);
-  };
-
-  ipcRenderer.on("edit-data-course", (event, status) => {
-    setTimeout(() => {
-      ipcRenderer.send("retrieve-course-data");
-      message = status.message;
-      windowDisabled = false;
-    }, 2000);
-  });
-
-  onDestroy(() => {
-    ipcRenderer.removeAllListeners("edit-data-course");
-  })
 </script>
+
+<AlertDialog bind:alertOpen bind:alertOptions />
 
 <div class="w-full h-full flex flex-col">
   <input bind:value={courseData.name} disabled={windowDisabled} type="text" class="p-2 drop-shadow-md m-2 rounded-md font-light" name="Course" id="course.name" placeholder="Course Name" />

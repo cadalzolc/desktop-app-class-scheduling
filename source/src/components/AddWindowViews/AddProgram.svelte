@@ -1,45 +1,44 @@
 <script>
-  const { ipcRenderer } = require("electron"); 
-  import { onDestroy } from "svelte";
-  import { addWindowStatus } from "../../stores/ui";
-  let message = "", windowDisabled = false, fieldDisabled = false;
-  let programData = {
-    name: "",
-    acronym: "",
-    year: "",
-    section: "",
+const { ipcRenderer } = require("electron");
+
+import { onDestroy } from "svelte";
+import { addWindowStatus } from "../../stores/ui";
+import AlertDialog from "../AlertDialog.svelte";
+
+let alertOpen = false;
+let alertOptions = {
+  success: false,
+  message: "Alert Box"
+};
+let message = "", windowDisabled = false, fieldDisabled = false;
+let programData = { name: "", acronym: "", year: "", section: "" }
+
+$: if (!programData.name || !programData.acronym || !programData.year || !programData.section) {
+  fieldDisabled = true;
+} else fieldDisabled = false;
+
+ipcRenderer.on("save-data-program", (e, res) => {
+  windowDisabled = false;
+  alertOpen = true;
+  alertOptions = res;
+  if (res.success) {
+    programData = { name: "", acronym: "", year: "", section: "" }
   }
+  ipcRenderer.send("retrieve-program-data");
+});
 
-  $: if (!programData.name || !programData.acronym || !programData.year || !programData.section) {
-    fieldDisabled = true;
-  } else fieldDisabled = false;
+onDestroy(() => {
+  ipcRenderer.removeAllListeners("save-data-program");
+});
 
-  let addWindowStatusChange = () => addWindowStatus.set(!$addWindowStatus);
-  let saveData = () => {
-    windowDisabled = true;
-    ipcRenderer.send("save-data-program", programData);
-  }
-
-  ipcRenderer.on("save-data-program", (event, status) => {
-    setTimeout(() => {
-      if (status.success == true) {
-        programData = {
-          name: "",
-          acronym: "",
-          year: "",
-          section: "",
-        }
-      }
-      ipcRenderer.send("retrieve-program-data");
-      message = status.message;
-      windowDisabled = false;
-    }, 2000);
-  });
-
-  onDestroy(() => {
-    ipcRenderer.removeAllListeners("save-data-program");
-  })
+let addWindowStatusChange = () => addWindowStatus.set(!$addWindowStatus);
+let saveData = () => {
+  windowDisabled = true;
+  ipcRenderer.send("save-data-program", programData);
+}
 </script>
+
+<AlertDialog bind:alertOpen bind:alertOptions />
 
 <div class="w-full h-full flex flex-col">
   <input bind:value={programData.name} disabled={windowDisabled} type="text" class="p-2 drop-shadow-md m-2 rounded-md font-light" name="Program" id="program.name" placeholder="Program Name" />
