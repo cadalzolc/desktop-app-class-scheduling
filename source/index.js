@@ -18,18 +18,17 @@ function createWindow() {
 		minHeight: 600,
 		width: 960,
 		height: 600,
-		//titleBarStyle: "hidden",
-		autoHideMenuBar: false,
+		titleBarStyle: "hidden",
+		autoHideMenuBar: true,
 		webPreferences: {
 			nodeIntegration: true,
 			contextIsolation: false,
-			devTools: true,
+			devTools: false,
 		},
 	});
 
 	win.loadFile(`${__dirname}/public/index.html`);
 	win.once("ready-to-show", () => {
-		console.log(`load system js`);
 		loadSystem(win);
 		win.maximize();
 	});
@@ -37,7 +36,7 @@ function createWindow() {
 	// If in production, don't show.
 	// if (isDev) win.webContents.openDevTools();
 
-	win.webContents.openDevTools();
+	//win.webContents.openDevTools();
 
 	// Sends shutdown request from renderer
 	ipcMain.on("shutdown-prompt", () => {
