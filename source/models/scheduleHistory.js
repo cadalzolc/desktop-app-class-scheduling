@@ -28,6 +28,10 @@ const ScheduleHistory = mongoose.Schema({
                     type: String,
                     require: true,
                 },
+                zone: {
+                    type: String,
+                    require: true,
+                }
             },
             end: {
                 hours: {
@@ -38,6 +42,10 @@ const ScheduleHistory = mongoose.Schema({
                     type: String,
                     require: true,
                 },
+                zone: {
+                    type: String,
+                    require: true,
+                }
             },
         },
         school: {

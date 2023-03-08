@@ -62,7 +62,7 @@ ipcRenderer.on("schedule-history-list", (event, res) => {
                   <td>{row.schedule.school.semester}</td>
                   <td><span style="text-transform:capitalize;">{row.schedule.type}</span></td>
                   <td>{days[row.schedule.day]}</td>
-                  <td>{row.schedule.time.start.hours}:{row.schedule.time.start.minutes} - {row.schedule.time.end.hours}:{row.schedule.time.end.minutes}</td>
+                  <td>{row.time.start.hours}:{(row.time.start.minutes < 10 && row.time.start.minutes > 0) ? ("0" + row.time.start.minutes) : row.time.start.minutes} {row.time.start.zone} - {row.time.end.hours}:{(row.time.end.minutes < 10 && row.time.end.minutes > 0) ? ("0" + row.time.end.minutes) : row.time.end.minutes} {row.time.end.zone}</td>
                   <td>{row.schedule.courseData.name}</td>
                   <td>{row.schedule.programData.acronym} {row.schedule.programData.year} - {row.schedule.programData.section}</td>
                   <td>{row.schedule.roomData.name}</td>

@@ -158,8 +158,8 @@
 
     scheduleData.school.year = curSy.schoolYear;
     scheduleData.school.semester = curSy.schoolSemester;
-    scheduleData.time.start = { hours: parseInt(tym1.hour), minutes: parseInt(tym1.minute) };
-    scheduleData.time.end = { hours: parseInt(tym2.hour), minutes: parseInt(tym2.minute) };
+    scheduleData.time.start = { hours: parseInt(tym1.hour), minutes: parseInt(tym1.minute), zone: tym1.tt };
+    scheduleData.time.end = { hours: parseInt(tym2.hour), minutes: parseInt(tym2.minute), zone: tym2.tt  };
 
     const date1 = new Date(tym1.date);
     const date2 = new Date(tym2.date);

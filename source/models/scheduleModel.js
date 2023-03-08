@@ -23,6 +23,10 @@ const ScheduleModel = mongoose.Schema({
 				type: String,
 				require: true,
 			},
+			zone: {
+				type: String,
+				require: true,
+			}
 		},
 		end: {
 			hours: {
@@ -33,6 +37,10 @@ const ScheduleModel = mongoose.Schema({
 				type: String,
 				require: true,
 			},
+			zone: {
+				type: String,
+				require: true,
+			}
 		},
 	},
 	school: {
