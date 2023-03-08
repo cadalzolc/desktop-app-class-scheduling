@@ -130,7 +130,7 @@ const onDeleteSchedule = (id) => {
                     <td>{row.school.semester}</td>
                     <td><span style="text-transform:capitalize;">{row.type}</span></td>
                     <td>{days[row.day]}</td>
-                    <td>{row.time.start.hours}:{row.time.start.minutes} - {row.time.end.hours}:{row.time.end.minutes}</td>
+                    <td>{row.time.start.hours}:{(row.time.start.minutes < 10 && row.time.start.minutes > 0) ? ("0" + row.time.start.minutes) : row.time.start.minutes} {row.time.start.zone} - {row.time.end.hours}:{(row.time.end.minutes < 10 && row.time.end.minutes > 0) ? ("0" + row.time.end.minutes) : row.time.end.minutes} {row.time.end.zone}</td>
                     <td>{row.courseData.name}</td>
                     <td>{row.programData.acronym} {row.programData.year} - {row.programData.section}</td>
                     <td>{row.roomData.name}</td>
