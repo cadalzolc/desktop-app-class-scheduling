@@ -33,8 +33,6 @@ function createWindow() {
 		win.maximize();
 	});
 
-	// If in production, don't show.
-	// if (isDev) win.webContents.openDevTools();
 
 	//win.webContents.openDevTools();
 
