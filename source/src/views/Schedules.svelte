@@ -121,7 +121,20 @@ const onDeleteSchedule = (id) => {
                         </svg>
                         <span slot="title">Delete this professor schedule?</span>
                         <span slot="description">You will be deleting the school year semester 
-                          <strong>{row.professorData.name.last} {row.professorData.name.first} - {row.courseData.name} {row.programData.acronym} {row.programData.year} - {row.programData.section} [{row.time.start.hours}:{row.time.start.minutes} - {row.time.end.hours}:{row.time.end.minutes}]</strong>!
+                          <strong>
+                            {row.professorData.name.last} 
+                            {row.professorData.name.first} - 
+                            {row.courseData.name} {row.programData.acronym} {row.programData.year} - 
+                            {row.programData.section} 
+                            [
+                              {(row.time.start.hours < 10 && row.time.start.hours >= 0) ? ("0" + row.time.start.hours) : row.time.start.hours}:
+                              {(row.time.start.minutes < 10 && row.time.start.minutes >= 0) ? ("0" + row.time.start.minutes) : row.time.start.minutes} 
+                              {row.time.start.zone} - 
+                              {(row.time.end.hours < 10 && row.time.end.hours >= 0) ? ("0" + row.time.end.hours) : row.time.end.hours}:
+                              {(row.time.end.minutes < 10 && row.time.end.minutes >= 0) ? ("0" + row.time.end.minutes) : row.time.end.minutes} 
+                              {row.time.end.zone}
+                            ]
+                          </strong>!
                       </span>
                     </ConfirmDialog>
                     </td>
@@ -130,7 +143,14 @@ const onDeleteSchedule = (id) => {
                     <td>{row.school.semester}</td>
                     <td><span style="text-transform:capitalize;">{row.type}</span></td>
                     <td>{days[row.day]}</td>
-                    <td>{row.time.start.hours}:{(row.time.start.minutes < 10 && row.time.start.minutes > 0) ? ("0" + row.time.start.minutes) : row.time.start.minutes} {row.time.start.zone} - {row.time.end.hours}:{(row.time.end.minutes < 10 && row.time.end.minutes > 0) ? ("0" + row.time.end.minutes) : row.time.end.minutes} {row.time.end.zone}</td>
+                    <td>
+                      {(row.time.start.hours < 10 && row.time.start.hours >= 0) ? ("0" + row.time.start.hours) : row.time.start.hours}:
+                      {(row.time.start.minutes < 10 && row.time.start.minutes >= 0) ? ("0" + row.time.start.minutes) : row.time.start.minutes} 
+                      {row.time.start.zone} - 
+                      {(row.time.end.hours < 10 && row.time.end.hours >= 0) ? ("0" + row.time.end.hours) : row.time.end.hours}:
+                      {(row.time.end.minutes < 10 && row.time.end.minutes >= 0) ? ("0" + row.time.end.minutes) : row.time.end.minutes} 
+                      {row.time.end.zone}
+                    </td>
                     <td>{row.courseData.name}</td>
                     <td>{row.programData.acronym} {row.programData.year} - {row.programData.section}</td>
                     <td>{row.roomData.name}</td>

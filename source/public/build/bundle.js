@@ -4290,7 +4290,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (198:10) {:else}
+    // (200:10) {:else}
     function create_else_block_2(ctx) {
     	let t;
 
@@ -4311,14 +4311,14 @@ var app = (function () {
     		block,
     		id: create_else_block_2.name,
     		type: "else",
-    		source: "(198:10) {:else}",
+    		source: "(200:10) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (196:10) {#if curSy}
+    // (198:10) {#if curSy}
     function create_if_block_10$1(ctx) {
     	let t0_value = /*curSy*/ ctx[2].schoolYear + "";
     	let t0;
@@ -4352,14 +4352,14 @@ var app = (function () {
     		block,
     		id: create_if_block_10$1.name,
     		type: "if",
-    		source: "(196:10) {#if curSy}",
+    		source: "(198:10) {#if curSy}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (209:10) {#if profPlaceholder}
+    // (211:10) {#if profPlaceholder}
     function create_if_block_9$1(ctx) {
     	let option;
 
@@ -4371,7 +4371,7 @@ var app = (function () {
     			option.value = option.__value;
     			option.disabled = true;
     			option.selected = true;
-    			add_location(option, file$z, 209, 12, 6979);
+    			add_location(option, file$z, 211, 12, 7033);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -4386,14 +4386,14 @@ var app = (function () {
     		block,
     		id: create_if_block_9$1.name,
     		type: "if",
-    		source: "(209:10) {#if profPlaceholder}",
+    		source: "(211:10) {#if profPlaceholder}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (212:10) {#each profsList as prof}
+    // (214:10) {#each profsList as prof}
     function create_each_block_5(ctx) {
     	let option;
     	let t0_value = /*prof*/ ctx[56].name.last + "";
@@ -4414,7 +4414,7 @@ var app = (function () {
     			option.__value = option_value_value = /*prof*/ ctx[56]._id;
     			option.value = option.__value;
     			attr_dev(option, "class", "font-light");
-    			add_location(option, file$z, 212, 12, 7108);
+    			add_location(option, file$z, 214, 12, 7162);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -4441,14 +4441,14 @@ var app = (function () {
     		block,
     		id: create_each_block_5.name,
     		type: "each",
-    		source: "(212:10) {#each profsList as prof}",
+    		source: "(214:10) {#each profsList as prof}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (223:10) {#if dayPlaceholder}
+    // (225:10) {#if dayPlaceholder}
     function create_if_block_8$1(ctx) {
     	let option;
 
@@ -4460,7 +4460,7 @@ var app = (function () {
     			option.value = option.__value;
     			option.disabled = true;
     			option.selected = true;
-    			add_location(option, file$z, 223, 12, 7637);
+    			add_location(option, file$z, 225, 12, 7691);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -4475,14 +4475,14 @@ var app = (function () {
     		block,
     		id: create_if_block_8$1.name,
     		type: "if",
-    		source: "(223:10) {#if dayPlaceholder}",
+    		source: "(225:10) {#if dayPlaceholder}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (241:10) {#if programPlaceholder}
+    // (243:10) {#if programPlaceholder}
     function create_if_block_7$2(ctx) {
     	let option;
 
@@ -4494,7 +4494,7 @@ var app = (function () {
     			option.value = option.__value;
     			option.disabled = true;
     			option.selected = true;
-    			add_location(option, file$z, 241, 10, 8602);
+    			add_location(option, file$z, 243, 10, 8656);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -4509,14 +4509,14 @@ var app = (function () {
     		block,
     		id: create_if_block_7$2.name,
     		type: "if",
-    		source: "(241:10) {#if programPlaceholder}",
+    		source: "(243:10) {#if programPlaceholder}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (244:10) {#each programList as row}
+    // (246:10) {#each programList as row}
     function create_each_block_4(ctx) {
     	let option;
     	let t0_value = /*row*/ ctx[45].acronym + "";
@@ -4540,7 +4540,7 @@ var app = (function () {
     			option.__value = option_value_value = /*row*/ ctx[45]._id;
     			option.value = option.__value;
     			attr_dev(option, "class", "font-light");
-    			add_location(option, file$z, 244, 12, 8735);
+    			add_location(option, file$z, 246, 12, 8789);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -4569,14 +4569,14 @@ var app = (function () {
     		block,
     		id: create_each_block_4.name,
     		type: "each",
-    		source: "(244:10) {#each programList as row}",
+    		source: "(246:10) {#each programList as row}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (255:10) {#if coursesPlaceholder}
+    // (257:10) {#if coursesPlaceholder}
     function create_if_block_6$3(ctx) {
     	let option;
 
@@ -4588,7 +4588,7 @@ var app = (function () {
     			option.value = option.__value;
     			option.disabled = true;
     			option.selected = true;
-    			add_location(option, file$z, 255, 12, 9276);
+    			add_location(option, file$z, 257, 12, 9330);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -4603,14 +4603,14 @@ var app = (function () {
     		block,
     		id: create_if_block_6$3.name,
     		type: "if",
-    		source: "(255:10) {#if coursesPlaceholder}",
+    		source: "(257:10) {#if coursesPlaceholder}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (258:10) {#each coursesList as row}
+    // (260:10) {#each coursesList as row}
     function create_each_block_3(ctx) {
     	let option;
     	let t0_value = /*row*/ ctx[45].name + "";
@@ -4631,7 +4631,7 @@ var app = (function () {
     			option.__value = option_value_value = /*row*/ ctx[45]._id;
     			option.value = option.__value;
     			attr_dev(option, "class", "font-light");
-    			add_location(option, file$z, 258, 12, 9409);
+    			add_location(option, file$z, 260, 12, 9463);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -4658,14 +4658,14 @@ var app = (function () {
     		block,
     		id: create_each_block_3.name,
     		type: "each",
-    		source: "(258:10) {#each coursesList as row}",
+    		source: "(260:10) {#each coursesList as row}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (269:10) {#if roomPlaceholder}
+    // (271:10) {#if roomPlaceholder}
     function create_if_block_5$3(ctx) {
     	let option;
 
@@ -4677,7 +4677,7 @@ var app = (function () {
     			option.value = option.__value;
     			option.disabled = true;
     			option.selected = true;
-    			add_location(option, file$z, 269, 12, 9925);
+    			add_location(option, file$z, 271, 12, 9979);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -4692,14 +4692,14 @@ var app = (function () {
     		block,
     		id: create_if_block_5$3.name,
     		type: "if",
-    		source: "(269:10) {#if roomPlaceholder}",
+    		source: "(271:10) {#if roomPlaceholder}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (272:10) {#each roomList as row}
+    // (274:10) {#each roomList as row}
     function create_each_block_2(ctx) {
     	let option;
     	let t_value = /*row*/ ctx[45].name + "";
@@ -4713,7 +4713,7 @@ var app = (function () {
     			option.__value = option_value_value = /*row*/ ctx[45]._id;
     			option.value = option.__value;
     			attr_dev(option, "class", "font-light");
-    			add_location(option, file$z, 272, 12, 10052);
+    			add_location(option, file$z, 274, 12, 10106);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -4736,14 +4736,14 @@ var app = (function () {
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(272:10) {#each roomList as row}",
+    		source: "(274:10) {#each roomList as row}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (287:10) {#if timeStartPlaceholder}
+    // (289:10) {#if timeStartPlaceholder}
     function create_if_block_4$4(ctx) {
     	let option;
 
@@ -4755,7 +4755,7 @@ var app = (function () {
     			option.value = option.__value;
     			option.disabled = true;
     			option.selected = true;
-    			add_location(option, file$z, 287, 12, 10651);
+    			add_location(option, file$z, 289, 12, 10705);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -4770,14 +4770,14 @@ var app = (function () {
     		block,
     		id: create_if_block_4$4.name,
     		type: "if",
-    		source: "(287:10) {#if timeStartPlaceholder}",
+    		source: "(289:10) {#if timeStartPlaceholder}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (293:12) {:else}
+    // (295:12) {:else}
     function create_else_block_1$1(ctx) {
     	let option;
     	let t_value = /*row*/ ctx[45].value + "";
@@ -4791,7 +4791,7 @@ var app = (function () {
     			option.__value = option_value_value = /*row*/ ctx[45]._id;
     			option.value = option.__value;
     			attr_dev(option, "class", "font-light");
-    			add_location(option, file$z, 293, 14, 10916);
+    			add_location(option, file$z, 295, 14, 10970);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -4814,14 +4814,14 @@ var app = (function () {
     		block,
     		id: create_else_block_1$1.name,
     		type: "else",
-    		source: "(293:12) {:else}",
+    		source: "(295:12) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (291:12) {#if row._id == timeStart}
+    // (293:12) {#if row._id == timeStart}
     function create_if_block_3$5(ctx) {
     	let option;
     	let t_value = /*row*/ ctx[45].value + "";
@@ -4835,7 +4835,7 @@ var app = (function () {
     			option.__value = option_value_value = /*row*/ ctx[45]._id;
     			option.value = option.__value;
     			option.selected = true;
-    			add_location(option, file$z, 291, 14, 10826);
+    			add_location(option, file$z, 293, 14, 10880);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -4858,14 +4858,14 @@ var app = (function () {
     		block,
     		id: create_if_block_3$5.name,
     		type: "if",
-    		source: "(291:12) {#if row._id == timeStart}",
+    		source: "(293:12) {#if row._id == timeStart}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (290:10) {#each timeRange as row}
+    // (292:10) {#each timeRange as row}
     function create_each_block_1$2(ctx) {
     	let if_block_anchor;
 
@@ -4909,14 +4909,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1$2.name,
     		type: "each",
-    		source: "(290:10) {#each timeRange as row}",
+    		source: "(292:10) {#each timeRange as row}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (303:10) {#if timeEndPlaceholder}
+    // (305:10) {#if timeEndPlaceholder}
     function create_if_block_2$7(ctx) {
     	let option;
 
@@ -4928,7 +4928,7 @@ var app = (function () {
     			option.value = option.__value;
     			option.disabled = true;
     			option.selected = true;
-    			add_location(option, file$z, 303, 12, 11343);
+    			add_location(option, file$z, 305, 12, 11397);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -4943,14 +4943,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2$7.name,
     		type: "if",
-    		source: "(303:10) {#if timeEndPlaceholder}",
+    		source: "(305:10) {#if timeEndPlaceholder}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (309:12) {:else}
+    // (311:12) {:else}
     function create_else_block$i(ctx) {
     	let option;
     	let t_value = /*row*/ ctx[45].value + "";
@@ -4964,7 +4964,7 @@ var app = (function () {
     			option.__value = option_value_value = /*row*/ ctx[45]._id;
     			option.value = option.__value;
     			attr_dev(option, "class", "font-light");
-    			add_location(option, file$z, 309, 14, 11604);
+    			add_location(option, file$z, 311, 14, 11658);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -4987,14 +4987,14 @@ var app = (function () {
     		block,
     		id: create_else_block$i.name,
     		type: "else",
-    		source: "(309:12) {:else}",
+    		source: "(311:12) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (307:12) {#if row._id == timeEnd}
+    // (309:12) {#if row._id == timeEnd}
     function create_if_block_1$j(ctx) {
     	let option;
     	let t_value = /*row*/ ctx[45].value + "";
@@ -5008,7 +5008,7 @@ var app = (function () {
     			option.__value = option_value_value = /*row*/ ctx[45]._id;
     			option.value = option.__value;
     			option.selected = true;
-    			add_location(option, file$z, 307, 14, 11514);
+    			add_location(option, file$z, 309, 14, 11568);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -5031,14 +5031,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1$j.name,
     		type: "if",
-    		source: "(307:12) {#if row._id == timeEnd}",
+    		source: "(309:12) {#if row._id == timeEnd}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (306:10) {#each timeRange as row}
+    // (308:10) {#each timeRange as row}
     function create_each_block$g(ctx) {
     	let if_block_anchor;
 
@@ -5082,14 +5082,14 @@ var app = (function () {
     		block,
     		id: create_each_block$g.name,
     		type: "each",
-    		source: "(306:10) {#each timeRange as row}",
+    		source: "(308:10) {#each timeRange as row}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (323:4) {#if curSy}
+    // (325:4) {#if curSy}
     function create_if_block$p(ctx) {
     	let button;
     	let t;
@@ -5102,7 +5102,7 @@ var app = (function () {
     			attr_dev(button, "type", "submt");
     			button.disabled = button_disabled_value = /*fieldDisabled*/ ctx[17] || /*windowDisabled*/ ctx[3];
     			attr_dev(button, "class", "px-5 py-1 drop-shadow-md rounded-full font-light my-2 mx-1 mr-2 hover:bg-gray-300 active:bg-gray-400 active:text-white disabled:bg-gray-100");
-    			add_location(button, file$z, 323, 6, 12164);
+    			add_location(button, file$z, 325, 6, 12218);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -5122,7 +5122,7 @@ var app = (function () {
     		block,
     		id: create_if_block$p.name,
     		type: "if",
-    		source: "(323:4) {#if curSy}",
+    		source: "(325:4) {#if curSy}",
     		ctx
     	});
 
@@ -5427,133 +5427,133 @@ var app = (function () {
     			t37 = space();
     			if (if_block8) if_block8.c();
     			attr_dev(p0, "class", "px-2 mx-2 rounded-md font-light");
-    			add_location(p0, file$z, 193, 8, 6254);
+    			add_location(p0, file$z, 195, 8, 6308);
     			attr_dev(div0, "class", "px-4 py-1 mx-2 mb-2 drop-shadow-md rounded-md font-light");
-    			add_location(div0, file$z, 194, 8, 6323);
+    			add_location(div0, file$z, 196, 8, 6377);
     			attr_dev(div1, "class", "w-full flex flex-col");
-    			add_location(div1, file$z, 192, 6, 6210);
+    			add_location(div1, file$z, 194, 6, 6264);
     			attr_dev(div2, "class", "w-full flex flex-row mt-2");
-    			add_location(div2, file$z, 191, 4, 6163);
+    			add_location(div2, file$z, 193, 4, 6217);
     			attr_dev(p1, "class", "px-2 mx-2 rounded-md font-light");
-    			add_location(p1, file$z, 206, 8, 6696);
+    			add_location(p1, file$z, 208, 8, 6750);
     			select0.disabled = /*windowDisabled*/ ctx[3];
     			select0.required = true;
     			attr_dev(select0, "class", "px-4 py-1 mx-2 mb-2 drop-shadow-md rounded-md font-light");
     			if (/*profInfo*/ ctx[6] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[34].call(select0));
-    			add_location(select0, file$z, 207, 8, 6770);
+    			add_location(select0, file$z, 209, 8, 6824);
     			attr_dev(div3, "class", "w-full flex flex-col");
-    			add_location(div3, file$z, 205, 6, 6652);
+    			add_location(div3, file$z, 207, 6, 6706);
     			attr_dev(div4, "class", "w-full flex flex-row mt-2");
-    			add_location(div4, file$z, 204, 4, 6605);
+    			add_location(div4, file$z, 206, 4, 6659);
     			attr_dev(p2, "class", "px-2 mx-2 rounded-md font-light");
-    			add_location(p2, file$z, 220, 8, 7359);
+    			add_location(p2, file$z, 222, 8, 7413);
     			option0.__value = "0";
     			option0.value = option0.__value;
     			attr_dev(option0, "class", "font-light");
-    			add_location(option0, file$z, 225, 10, 7726);
+    			add_location(option0, file$z, 227, 10, 7780);
     			option1.__value = "1";
     			option1.value = option1.__value;
     			attr_dev(option1, "class", "font-light");
-    			add_location(option1, file$z, 226, 10, 7790);
+    			add_location(option1, file$z, 228, 10, 7844);
     			option2.__value = "2";
     			option2.value = option2.__value;
     			attr_dev(option2, "class", "font-light");
-    			add_location(option2, file$z, 227, 10, 7855);
+    			add_location(option2, file$z, 229, 10, 7909);
     			option3.__value = "3";
     			option3.value = option3.__value;
     			attr_dev(option3, "class", "font-light");
-    			add_location(option3, file$z, 228, 10, 7922);
+    			add_location(option3, file$z, 230, 10, 7976);
     			option4.__value = "4";
     			option4.value = option4.__value;
     			attr_dev(option4, "class", "font-light");
-    			add_location(option4, file$z, 229, 10, 7988);
+    			add_location(option4, file$z, 231, 10, 8042);
     			option5.__value = "5";
     			option5.value = option5.__value;
     			attr_dev(option5, "class", "font-light");
-    			add_location(option5, file$z, 230, 10, 8052);
+    			add_location(option5, file$z, 232, 10, 8106);
     			option6.__value = "6";
     			option6.value = option6.__value;
     			attr_dev(option6, "class", "font-light");
-    			add_location(option6, file$z, 231, 10, 8118);
+    			add_location(option6, file$z, 233, 10, 8172);
     			select1.disabled = /*windowDisabled*/ ctx[3];
     			select1.required = true;
     			attr_dev(select1, "class", "px-4 py-1 mx-2 mb-2 drop-shadow-md rounded-md font-light");
     			if (/*daySelected*/ ctx[4] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[35].call(select1));
-    			add_location(select1, file$z, 221, 8, 7427);
+    			add_location(select1, file$z, 223, 8, 7481);
     			attr_dev(div5, "class", "w-full flex flex-col");
-    			add_location(div5, file$z, 219, 6, 7315);
+    			add_location(div5, file$z, 221, 6, 7369);
     			attr_dev(div6, "class", "w-full flex flex-row mt-2");
-    			add_location(div6, file$z, 218, 4, 7268);
+    			add_location(div6, file$z, 220, 4, 7322);
     			attr_dev(p3, "class", "px-2 mx-2 rounded-md font-light");
-    			add_location(p3, file$z, 238, 8, 8314);
+    			add_location(p3, file$z, 240, 8, 8368);
     			select2.disabled = /*windowDisabled*/ ctx[3];
     			select2.required = true;
     			attr_dev(select2, "class", "px-4 py-1 mx-2 mb-2 drop-shadow-md rounded-md font-light");
     			if (/*programInfo*/ ctx[8] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[36].call(select2));
-    			add_location(select2, file$z, 239, 8, 8386);
+    			add_location(select2, file$z, 241, 8, 8440);
     			attr_dev(div7, "class", "w-full flex flex-col");
-    			add_location(div7, file$z, 237, 6, 8270);
+    			add_location(div7, file$z, 239, 6, 8324);
     			attr_dev(div8, "class", "w-full flex flex-row mt-2");
-    			add_location(div8, file$z, 236, 4, 8223);
+    			add_location(div8, file$z, 238, 4, 8277);
     			attr_dev(p4, "class", "px-2 mx-2 rounded-md font-light");
-    			add_location(p4, file$z, 252, 8, 8988);
+    			add_location(p4, file$z, 254, 8, 9042);
     			select3.disabled = /*windowDisabled*/ ctx[3];
     			select3.required = true;
     			attr_dev(select3, "class", "px-4 py-1 mx-2 mb-2 drop-shadow-md rounded-md font-light");
     			if (/*coursesInfo*/ ctx[10] === void 0) add_render_callback(() => /*select3_change_handler*/ ctx[37].call(select3));
-    			add_location(select3, file$z, 253, 8, 9059);
+    			add_location(select3, file$z, 255, 8, 9113);
     			attr_dev(div9, "class", "w-full flex flex-col");
-    			add_location(div9, file$z, 251, 6, 8944);
+    			add_location(div9, file$z, 253, 6, 8998);
     			attr_dev(div10, "class", "w-full flex flex-row mt-2");
-    			add_location(div10, file$z, 250, 4, 8897);
+    			add_location(div10, file$z, 252, 4, 8951);
     			attr_dev(p5, "class", "px-2 mx-2 rounded-md font-light");
-    			add_location(p5, file$z, 266, 8, 9647);
+    			add_location(p5, file$z, 268, 8, 9701);
     			select4.disabled = /*windowDisabled*/ ctx[3];
     			select4.required = true;
     			attr_dev(select4, "class", "px-4 py-1 mx-2 mb-2 drop-shadow-md rounded-md font-light");
     			if (/*roomInfo*/ ctx[12] === void 0) add_render_callback(() => /*select4_change_handler*/ ctx[38].call(select4));
-    			add_location(select4, file$z, 267, 8, 9716);
+    			add_location(select4, file$z, 269, 8, 9770);
     			attr_dev(div11, "class", "w-full flex flex-col");
-    			add_location(div11, file$z, 265, 6, 9603);
+    			add_location(div11, file$z, 267, 6, 9657);
     			attr_dev(div12, "class", "w-full flex flex-row mt-2");
-    			add_location(div12, file$z, 264, 4, 9556);
+    			add_location(div12, file$z, 266, 4, 9610);
     			attr_dev(p6, "class", "px-2 mx-2 rounded-md font-light");
-    			add_location(p6, file$z, 279, 6, 10233);
+    			add_location(p6, file$z, 281, 6, 10287);
     			attr_dev(div13, "class", "w-full flex flex-row mt-2");
-    			add_location(div13, file$z, 278, 4, 10186);
+    			add_location(div13, file$z, 280, 4, 10240);
     			attr_dev(p7, "class", "px-2 mx-2 rounded-md font-light");
-    			add_location(p7, file$z, 284, 8, 10406);
+    			add_location(p7, file$z, 286, 8, 10460);
     			select5.disabled = /*windowDisabled*/ ctx[3];
     			select5.required = true;
     			attr_dev(select5, "class", "px-4 py-1 mx-2 mb-2 drop-shadow-md rounded-md font-light");
     			if (/*timeStart*/ ctx[14] === void 0) add_render_callback(() => /*select5_change_handler*/ ctx[39].call(select5));
-    			add_location(select5, file$z, 285, 8, 10468);
+    			add_location(select5, file$z, 287, 8, 10522);
     			attr_dev(div14, "class", "w-full flex flex-col");
-    			add_location(div14, file$z, 283, 6, 10362);
+    			add_location(div14, file$z, 285, 6, 10416);
     			attr_dev(p8, "class", "px-2 mx-2 rounded-md font-light");
-    			add_location(p8, file$z, 300, 8, 11104);
+    			add_location(p8, file$z, 302, 8, 11158);
     			select6.disabled = /*windowDisabled*/ ctx[3];
     			select6.required = true;
     			attr_dev(select6, "class", "px-4 py-1 mx-2 mb-2 drop-shadow-md rounded-md font-light");
     			if (/*timeEnd*/ ctx[15] === void 0) add_render_callback(() => /*select6_change_handler*/ ctx[40].call(select6));
-    			add_location(select6, file$z, 301, 8, 11164);
+    			add_location(select6, file$z, 303, 8, 11218);
     			attr_dev(div15, "class", "w-full flex flex-col");
-    			add_location(div15, file$z, 299, 6, 11060);
+    			add_location(div15, file$z, 301, 6, 11114);
     			attr_dev(div16, "class", "w-full flex flex-row mt-2");
-    			add_location(div16, file$z, 281, 4, 10313);
+    			add_location(div16, file$z, 283, 4, 10367);
     			attr_dev(p9, "class", "w-full text-center font-light");
     			set_style(p9, "color", "red");
-    			add_location(p9, file$z, 317, 4, 11766);
+    			add_location(p9, file$z, 319, 4, 11820);
     			attr_dev(div17, "class", "w-full h-full flex flex-col");
-    			add_location(div17, file$z, 189, 2, 6114);
+    			add_location(div17, file$z, 191, 2, 6168);
     			attr_dev(button, "type", "button");
     			button.disabled = /*windowDisabled*/ ctx[3];
     			attr_dev(button, "class", "px-5 py-1 drop-shadow-md rounded-full font-light my-2 mx-1 hover:bg-gray-300 active:bg-gray-400 active:text-white disabled:bg-gray-100");
-    			add_location(button, file$z, 321, 4, 11901);
+    			add_location(button, file$z, 323, 4, 11955);
     			attr_dev(div18, "class", "flex flex-row justify-end");
-    			add_location(div18, file$z, 320, 2, 11856);
+    			add_location(div18, file$z, 322, 2, 11910);
     			attr_dev(form, "method", "post");
-    			add_location(form, file$z, 187, 0, 6044);
+    			add_location(form, file$z, 189, 0, 6098);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -6224,26 +6224,29 @@ var app = (function () {
 
     		scheduleData.time.start = {
     			hours: parseInt(tym1.hour),
-    			minutes: parseInt(tym1.minute)
+    			minutes: parseInt(tym1.minute),
+    			zone: tym1.tt
     		};
 
     		scheduleData.time.end = {
     			hours: parseInt(tym2.hour),
-    			minutes: parseInt(tym2.minute)
+    			minutes: parseInt(tym2.minute),
+    			zone: tym2.tt
     		};
 
     		const date1 = new Date(tym1.date);
     		const date2 = new Date(tym2.date);
     		const diff = date2.getTime() - date1.getTime();
     		const val = diff / 1000 / 60 / 60;
+    		alert(val);
 
-    		if (val < 1 || val > 3) {
+    		if (val < 1.0 || val > 5.0) {
     			$$invalidate(3, windowDisabled = false);
     			$$invalidate(0, alertOpen = true);
 
     			$$invalidate(1, alertOptions = {
     				success: false,
-    				message: "A minimum of 1 hour or maximum of 3 hours schedule is required"
+    				message: "A minimum of 1 hour or maximum of 5 hours schedule is required"
     			});
 
     			return;
@@ -16690,19 +16693,41 @@ var app = (function () {
     	let t11_value = /*row*/ ctx[14].programData.section + "";
     	let t11;
     	let t12;
-    	let t13_value = /*row*/ ctx[14].time.start.hours + "";
+
+    	let t13_value = (/*row*/ ctx[14].time.start.hours < 10 && /*row*/ ctx[14].time.start.hours >= 0
+    	? "0" + /*row*/ ctx[14].time.start.hours
+    	: /*row*/ ctx[14].time.start.hours) + "";
+
     	let t13;
     	let t14;
-    	let t15_value = /*row*/ ctx[14].time.start.minutes + "";
+
+    	let t15_value = (/*row*/ ctx[14].time.start.minutes < 10 && /*row*/ ctx[14].time.start.minutes >= 0
+    	? "0" + /*row*/ ctx[14].time.start.minutes
+    	: /*row*/ ctx[14].time.start.minutes) + "";
+
     	let t15;
     	let t16;
-    	let t17_value = /*row*/ ctx[14].time.end.hours + "";
+    	let t17_value = /*row*/ ctx[14].time.start.zone + "";
     	let t17;
     	let t18;
-    	let t19_value = /*row*/ ctx[14].time.end.minutes + "";
+
+    	let t19_value = (/*row*/ ctx[14].time.end.hours < 10 && /*row*/ ctx[14].time.end.hours >= 0
+    	? "0" + /*row*/ ctx[14].time.end.hours
+    	: /*row*/ ctx[14].time.end.hours) + "";
+
     	let t19;
     	let t20;
+
+    	let t21_value = (/*row*/ ctx[14].time.end.minutes < 10 && /*row*/ ctx[14].time.end.minutes >= 0
+    	? "0" + /*row*/ ctx[14].time.end.minutes
+    	: /*row*/ ctx[14].time.end.minutes) + "";
+
     	let t21;
+    	let t22;
+    	let t23_value = /*row*/ ctx[14].time.end.zone + "";
+    	let t23;
+    	let t24;
+    	let t25;
 
     	const block = {
     		c: function create() {
@@ -16712,24 +16737,28 @@ var app = (function () {
     			t1 = text(t1_value);
     			t2 = space();
     			t3 = text(t3_value);
-    			t4 = text(" - ");
+    			t4 = text(" - \r\n                            ");
     			t5 = text(t5_value);
     			t6 = space();
     			t7 = text(t7_value);
     			t8 = space();
     			t9 = text(t9_value);
-    			t10 = text(" - ");
+    			t10 = text(" - \r\n                            ");
     			t11 = text(t11_value);
-    			t12 = text(" [");
+    			t12 = text(" \r\n                            [\r\n                              ");
     			t13 = text(t13_value);
-    			t14 = text(":");
+    			t14 = text(":\r\n                              ");
     			t15 = text(t15_value);
-    			t16 = text(" - ");
+    			t16 = space();
     			t17 = text(t17_value);
-    			t18 = text(":");
+    			t18 = text(" - \r\n                              ");
     			t19 = text(t19_value);
-    			t20 = text("]");
-    			t21 = text("!");
+    			t20 = text(":\r\n                              ");
+    			t21 = text(t21_value);
+    			t22 = space();
+    			t23 = text(t23_value);
+    			t24 = text("\r\n                            ]\r\n                          ");
+    			t25 = text("!");
     			add_location(strong, file$e, 123, 26, 6296);
     			attr_dev(span, "slot", "description");
     			add_location(span, file$e, 122, 24, 6197);
@@ -16758,7 +16787,11 @@ var app = (function () {
     			append_dev(strong, t18);
     			append_dev(strong, t19);
     			append_dev(strong, t20);
-    			append_dev(span, t21);
+    			append_dev(strong, t21);
+    			append_dev(strong, t22);
+    			append_dev(strong, t23);
+    			append_dev(strong, t24);
+    			append_dev(span, t25);
     		},
     		p: function update(ctx, dirty) {
     			if (dirty & /*scheduleData*/ 1 && t1_value !== (t1_value = /*row*/ ctx[14].professorData.name.last + "")) set_data_dev(t1, t1_value);
@@ -16767,10 +16800,26 @@ var app = (function () {
     			if (dirty & /*scheduleData*/ 1 && t7_value !== (t7_value = /*row*/ ctx[14].programData.acronym + "")) set_data_dev(t7, t7_value);
     			if (dirty & /*scheduleData*/ 1 && t9_value !== (t9_value = /*row*/ ctx[14].programData.year + "")) set_data_dev(t9, t9_value);
     			if (dirty & /*scheduleData*/ 1 && t11_value !== (t11_value = /*row*/ ctx[14].programData.section + "")) set_data_dev(t11, t11_value);
-    			if (dirty & /*scheduleData*/ 1 && t13_value !== (t13_value = /*row*/ ctx[14].time.start.hours + "")) set_data_dev(t13, t13_value);
-    			if (dirty & /*scheduleData*/ 1 && t15_value !== (t15_value = /*row*/ ctx[14].time.start.minutes + "")) set_data_dev(t15, t15_value);
-    			if (dirty & /*scheduleData*/ 1 && t17_value !== (t17_value = /*row*/ ctx[14].time.end.hours + "")) set_data_dev(t17, t17_value);
-    			if (dirty & /*scheduleData*/ 1 && t19_value !== (t19_value = /*row*/ ctx[14].time.end.minutes + "")) set_data_dev(t19, t19_value);
+
+    			if (dirty & /*scheduleData*/ 1 && t13_value !== (t13_value = (/*row*/ ctx[14].time.start.hours < 10 && /*row*/ ctx[14].time.start.hours >= 0
+    			? "0" + /*row*/ ctx[14].time.start.hours
+    			: /*row*/ ctx[14].time.start.hours) + "")) set_data_dev(t13, t13_value);
+
+    			if (dirty & /*scheduleData*/ 1 && t15_value !== (t15_value = (/*row*/ ctx[14].time.start.minutes < 10 && /*row*/ ctx[14].time.start.minutes >= 0
+    			? "0" + /*row*/ ctx[14].time.start.minutes
+    			: /*row*/ ctx[14].time.start.minutes) + "")) set_data_dev(t15, t15_value);
+
+    			if (dirty & /*scheduleData*/ 1 && t17_value !== (t17_value = /*row*/ ctx[14].time.start.zone + "")) set_data_dev(t17, t17_value);
+
+    			if (dirty & /*scheduleData*/ 1 && t19_value !== (t19_value = (/*row*/ ctx[14].time.end.hours < 10 && /*row*/ ctx[14].time.end.hours >= 0
+    			? "0" + /*row*/ ctx[14].time.end.hours
+    			: /*row*/ ctx[14].time.end.hours) + "")) set_data_dev(t19, t19_value);
+
+    			if (dirty & /*scheduleData*/ 1 && t21_value !== (t21_value = (/*row*/ ctx[14].time.end.minutes < 10 && /*row*/ ctx[14].time.end.minutes >= 0
+    			? "0" + /*row*/ ctx[14].time.end.minutes
+    			: /*row*/ ctx[14].time.end.minutes) + "")) set_data_dev(t21, t21_value);
+
+    			if (dirty & /*scheduleData*/ 1 && t23_value !== (t23_value = /*row*/ ctx[14].time.end.zone + "")) set_data_dev(t23, t23_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(span);
@@ -16819,36 +16868,58 @@ var app = (function () {
     	let t11;
     	let t12;
     	let td6;
-    	let t13_value = /*row*/ ctx[14].time.start.hours + "";
+
+    	let t13_value = (/*row*/ ctx[14].time.start.hours < 10 && /*row*/ ctx[14].time.start.hours >= 0
+    	? "0" + /*row*/ ctx[14].time.start.hours
+    	: /*row*/ ctx[14].time.start.hours) + "";
+
     	let t13;
     	let t14;
-    	let t15_value = /*row*/ ctx[14].time.start.minutes + "";
+
+    	let t15_value = (/*row*/ ctx[14].time.start.minutes < 10 && /*row*/ ctx[14].time.start.minutes >= 0
+    	? "0" + /*row*/ ctx[14].time.start.minutes
+    	: /*row*/ ctx[14].time.start.minutes) + "";
+
     	let t15;
     	let t16;
-    	let t17_value = /*row*/ ctx[14].time.end.hours + "";
+    	let t17_value = /*row*/ ctx[14].time.start.zone + "";
     	let t17;
     	let t18;
-    	let t19_value = /*row*/ ctx[14].time.end.minutes + "";
+
+    	let t19_value = (/*row*/ ctx[14].time.end.hours < 10 && /*row*/ ctx[14].time.end.hours >= 0
+    	? "0" + /*row*/ ctx[14].time.end.hours
+    	: /*row*/ ctx[14].time.end.hours) + "";
+
     	let t19;
     	let t20;
-    	let td7;
-    	let t21_value = /*row*/ ctx[14].courseData.name + "";
+
+    	let t21_value = (/*row*/ ctx[14].time.end.minutes < 10 && /*row*/ ctx[14].time.end.minutes >= 0
+    	? "0" + /*row*/ ctx[14].time.end.minutes
+    	: /*row*/ ctx[14].time.end.minutes) + "";
+
     	let t21;
     	let t22;
-    	let td8;
-    	let t23_value = /*row*/ ctx[14].programData.acronym + "";
+    	let t23_value = /*row*/ ctx[14].time.end.zone + "";
     	let t23;
     	let t24;
-    	let t25_value = /*row*/ ctx[14].programData.year + "";
+    	let td7;
+    	let t25_value = /*row*/ ctx[14].courseData.name + "";
     	let t25;
     	let t26;
-    	let t27_value = /*row*/ ctx[14].programData.section + "";
+    	let td8;
+    	let t27_value = /*row*/ ctx[14].programData.acronym + "";
     	let t27;
     	let t28;
-    	let td9;
-    	let t29_value = /*row*/ ctx[14].roomData.name + "";
+    	let t29_value = /*row*/ ctx[14].programData.year + "";
     	let t29;
     	let t30;
+    	let t31_value = /*row*/ ctx[14].programData.section + "";
+    	let t31;
+    	let t32;
+    	let td9;
+    	let t33_value = /*row*/ ctx[14].roomData.name + "";
+    	let t33;
+    	let t34;
     	let current;
 
     	confirmdialog = new ConfirmDialog({
@@ -16903,39 +16974,43 @@ var app = (function () {
     			t12 = space();
     			td6 = element("td");
     			t13 = text(t13_value);
-    			t14 = text(":");
+    			t14 = text(":\r\n                      ");
     			t15 = text(t15_value);
-    			t16 = text(" - ");
+    			t16 = space();
     			t17 = text(t17_value);
-    			t18 = text(":");
+    			t18 = text(" - \r\n                      ");
     			t19 = text(t19_value);
-    			t20 = space();
-    			td7 = element("td");
+    			t20 = text(":\r\n                      ");
     			t21 = text(t21_value);
     			t22 = space();
-    			td8 = element("td");
     			t23 = text(t23_value);
     			t24 = space();
+    			td7 = element("td");
     			t25 = text(t25_value);
-    			t26 = text(" - ");
+    			t26 = space();
+    			td8 = element("td");
     			t27 = text(t27_value);
     			t28 = space();
-    			td9 = element("td");
     			t29 = text(t29_value);
-    			t30 = space();
+    			t30 = text(" - ");
+    			t31 = text(t31_value);
+    			t32 = space();
+    			td9 = element("td");
+    			t33 = text(t33_value);
+    			t34 = space();
     			attr_dev(td0, "class", "center");
     			add_location(td0, file$e, 115, 20, 5513);
-    			add_location(td1, file$e, 127, 20, 6689);
-    			add_location(td2, file$e, 128, 20, 6780);
-    			add_location(td3, file$e, 129, 20, 6828);
+    			add_location(td1, file$e, 140, 20, 7491);
+    			add_location(td2, file$e, 141, 20, 7582);
+    			add_location(td3, file$e, 142, 20, 7630);
     			set_style(span, "text-transform", "capitalize");
-    			add_location(span, file$e, 130, 24, 6884);
-    			add_location(td4, file$e, 130, 20, 6880);
-    			add_location(td5, file$e, 131, 20, 6969);
-    			add_location(td6, file$e, 132, 20, 7015);
-    			add_location(td7, file$e, 133, 20, 7139);
-    			add_location(td8, file$e, 134, 20, 7191);
-    			add_location(td9, file$e, 135, 20, 7298);
+    			add_location(span, file$e, 143, 24, 7686);
+    			add_location(td4, file$e, 143, 20, 7682);
+    			add_location(td5, file$e, 144, 20, 7771);
+    			add_location(td6, file$e, 145, 20, 7817);
+    			add_location(td7, file$e, 153, 20, 8509);
+    			add_location(td8, file$e, 154, 20, 8561);
+    			add_location(td9, file$e, 155, 20, 8668);
     			add_location(tr, file$e, 114, 16, 5487);
     		},
     		m: function mount(target, anchor) {
@@ -16969,20 +17044,24 @@ var app = (function () {
     			append_dev(td6, t17);
     			append_dev(td6, t18);
     			append_dev(td6, t19);
-    			append_dev(tr, t20);
+    			append_dev(td6, t20);
+    			append_dev(td6, t21);
+    			append_dev(td6, t22);
+    			append_dev(td6, t23);
+    			append_dev(tr, t24);
     			append_dev(tr, td7);
-    			append_dev(td7, t21);
-    			append_dev(tr, t22);
+    			append_dev(td7, t25);
+    			append_dev(tr, t26);
     			append_dev(tr, td8);
-    			append_dev(td8, t23);
-    			append_dev(td8, t24);
-    			append_dev(td8, t25);
-    			append_dev(td8, t26);
     			append_dev(td8, t27);
-    			append_dev(tr, t28);
+    			append_dev(td8, t28);
+    			append_dev(td8, t29);
+    			append_dev(td8, t30);
+    			append_dev(td8, t31);
+    			append_dev(tr, t32);
     			append_dev(tr, td9);
-    			append_dev(td9, t29);
-    			append_dev(tr, t30);
+    			append_dev(td9, t33);
+    			append_dev(tr, t34);
     			current = true;
     		},
     		p: function update(ctx, dirty) {
@@ -16999,15 +17078,31 @@ var app = (function () {
     			if ((!current || dirty & /*scheduleData*/ 1) && t7_value !== (t7_value = /*row*/ ctx[14].school.semester + "")) set_data_dev(t7, t7_value);
     			if ((!current || dirty & /*scheduleData*/ 1) && t9_value !== (t9_value = /*row*/ ctx[14].type + "")) set_data_dev(t9, t9_value);
     			if ((!current || dirty & /*scheduleData*/ 1) && t11_value !== (t11_value = /*days*/ ctx[3][/*row*/ ctx[14].day] + "")) set_data_dev(t11, t11_value);
-    			if ((!current || dirty & /*scheduleData*/ 1) && t13_value !== (t13_value = /*row*/ ctx[14].time.start.hours + "")) set_data_dev(t13, t13_value);
-    			if ((!current || dirty & /*scheduleData*/ 1) && t15_value !== (t15_value = /*row*/ ctx[14].time.start.minutes + "")) set_data_dev(t15, t15_value);
-    			if ((!current || dirty & /*scheduleData*/ 1) && t17_value !== (t17_value = /*row*/ ctx[14].time.end.hours + "")) set_data_dev(t17, t17_value);
-    			if ((!current || dirty & /*scheduleData*/ 1) && t19_value !== (t19_value = /*row*/ ctx[14].time.end.minutes + "")) set_data_dev(t19, t19_value);
-    			if ((!current || dirty & /*scheduleData*/ 1) && t21_value !== (t21_value = /*row*/ ctx[14].courseData.name + "")) set_data_dev(t21, t21_value);
-    			if ((!current || dirty & /*scheduleData*/ 1) && t23_value !== (t23_value = /*row*/ ctx[14].programData.acronym + "")) set_data_dev(t23, t23_value);
-    			if ((!current || dirty & /*scheduleData*/ 1) && t25_value !== (t25_value = /*row*/ ctx[14].programData.year + "")) set_data_dev(t25, t25_value);
-    			if ((!current || dirty & /*scheduleData*/ 1) && t27_value !== (t27_value = /*row*/ ctx[14].programData.section + "")) set_data_dev(t27, t27_value);
-    			if ((!current || dirty & /*scheduleData*/ 1) && t29_value !== (t29_value = /*row*/ ctx[14].roomData.name + "")) set_data_dev(t29, t29_value);
+
+    			if ((!current || dirty & /*scheduleData*/ 1) && t13_value !== (t13_value = (/*row*/ ctx[14].time.start.hours < 10 && /*row*/ ctx[14].time.start.hours >= 0
+    			? "0" + /*row*/ ctx[14].time.start.hours
+    			: /*row*/ ctx[14].time.start.hours) + "")) set_data_dev(t13, t13_value);
+
+    			if ((!current || dirty & /*scheduleData*/ 1) && t15_value !== (t15_value = (/*row*/ ctx[14].time.start.minutes < 10 && /*row*/ ctx[14].time.start.minutes >= 0
+    			? "0" + /*row*/ ctx[14].time.start.minutes
+    			: /*row*/ ctx[14].time.start.minutes) + "")) set_data_dev(t15, t15_value);
+
+    			if ((!current || dirty & /*scheduleData*/ 1) && t17_value !== (t17_value = /*row*/ ctx[14].time.start.zone + "")) set_data_dev(t17, t17_value);
+
+    			if ((!current || dirty & /*scheduleData*/ 1) && t19_value !== (t19_value = (/*row*/ ctx[14].time.end.hours < 10 && /*row*/ ctx[14].time.end.hours >= 0
+    			? "0" + /*row*/ ctx[14].time.end.hours
+    			: /*row*/ ctx[14].time.end.hours) + "")) set_data_dev(t19, t19_value);
+
+    			if ((!current || dirty & /*scheduleData*/ 1) && t21_value !== (t21_value = (/*row*/ ctx[14].time.end.minutes < 10 && /*row*/ ctx[14].time.end.minutes >= 0
+    			? "0" + /*row*/ ctx[14].time.end.minutes
+    			: /*row*/ ctx[14].time.end.minutes) + "")) set_data_dev(t21, t21_value);
+
+    			if ((!current || dirty & /*scheduleData*/ 1) && t23_value !== (t23_value = /*row*/ ctx[14].time.end.zone + "")) set_data_dev(t23, t23_value);
+    			if ((!current || dirty & /*scheduleData*/ 1) && t25_value !== (t25_value = /*row*/ ctx[14].courseData.name + "")) set_data_dev(t25, t25_value);
+    			if ((!current || dirty & /*scheduleData*/ 1) && t27_value !== (t27_value = /*row*/ ctx[14].programData.acronym + "")) set_data_dev(t27, t27_value);
+    			if ((!current || dirty & /*scheduleData*/ 1) && t29_value !== (t29_value = /*row*/ ctx[14].programData.year + "")) set_data_dev(t29, t29_value);
+    			if ((!current || dirty & /*scheduleData*/ 1) && t31_value !== (t31_value = /*row*/ ctx[14].programData.section + "")) set_data_dev(t31, t31_value);
+    			if ((!current || dirty & /*scheduleData*/ 1) && t33_value !== (t33_value = /*row*/ ctx[14].roomData.name + "")) set_data_dev(t33, t33_value);
     		},
     		i: function intro(local) {
     			if (current) return;
@@ -27079,9 +27174,9 @@ var app = (function () {
     			tr = element("tr");
     			td = element("td");
     			td.textContent = "No record to display.";
-    			attr_dev(td, "colspan", "4");
-    			add_location(td, file$1, 53, 16, 2431);
-    			add_location(tr, file$1, 52, 14, 2409);
+    			attr_dev(td, "colspan", "20");
+    			add_location(td, file$1, 53, 16, 2432);
+    			add_location(tr, file$1, 52, 14, 2410);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, tr, anchor);
@@ -27114,7 +27209,7 @@ var app = (function () {
     			tr = element("tr");
     			td = element("td");
     			td.textContent = "No record to display.";
-    			attr_dev(td, "colspan", "4");
+    			attr_dev(td, "colspan", "20");
     			add_location(td, file$1, 49, 14, 2283);
     			add_location(tr, file$1, 48, 12, 2263);
     		},
@@ -27169,40 +27264,62 @@ var app = (function () {
     	let t12;
     	let t13;
     	let td6;
-    	let t14_value = /*row*/ ctx[3].schedule.time.start.hours + "";
+
+    	let t14_value = (/*row*/ ctx[3].schedule.time.start.hours < 10 && /*row*/ ctx[3].schedule.time.start.hours >= 0
+    	? "0" + /*row*/ ctx[3].schedule.time.start.hours
+    	: /*row*/ ctx[3].schedule.time.start.hours) + "";
+
     	let t14;
     	let t15;
-    	let t16_value = /*row*/ ctx[3].schedule.time.start.minutes + "";
+
+    	let t16_value = (/*row*/ ctx[3].schedule.time.start.minutes < 10 && /*row*/ ctx[3].schedule.time.start.minutes >= 0
+    	? "0" + /*row*/ ctx[3].schedule.time.start.minutes
+    	: /*row*/ ctx[3].schedule.time.start.minutes) + "";
+
     	let t16;
     	let t17;
-    	let t18_value = /*row*/ ctx[3].schedule.time.end.hours + "";
+    	let t18_value = /*row*/ ctx[3].schedule.time.start.zone + "";
     	let t18;
     	let t19;
-    	let t20_value = /*row*/ ctx[3].schedule.time.end.minutes + "";
+
+    	let t20_value = (/*row*/ ctx[3].schedule.time.end.hours < 10 && /*row*/ ctx[3].schedule.time.end.hours >= 0
+    	? "0" + /*row*/ ctx[3].schedule.time.end.hours
+    	: /*row*/ ctx[3].schedule.time.end.hours) + "";
+
     	let t20;
     	let t21;
-    	let td7;
-    	let t22_value = /*row*/ ctx[3].schedule.courseData.name + "";
+
+    	let t22_value = (/*row*/ ctx[3].schedule.time.end.minutes < 10 && /*row*/ ctx[3].schedule.time.end.minutes >= 0
+    	? "0" + /*row*/ ctx[3].schedule.time.end.minutes
+    	: /*row*/ ctx[3].schedule.time.end.minutes) + "";
+
     	let t22;
     	let t23;
-    	let td8;
-    	let t24_value = /*row*/ ctx[3].schedule.programData.acronym + "";
+    	let t24_value = /*row*/ ctx[3].schedule.time.end.zone + "";
     	let t24;
     	let t25;
-    	let t26_value = /*row*/ ctx[3].schedule.programData.year + "";
+    	let td7;
+    	let t26_value = /*row*/ ctx[3].schedule.courseData.name + "";
     	let t26;
     	let t27;
-    	let t28_value = /*row*/ ctx[3].schedule.programData.section + "";
+    	let td8;
+    	let t28_value = /*row*/ ctx[3].schedule.programData.acronym + "";
     	let t28;
     	let t29;
-    	let td9;
-    	let t30_value = /*row*/ ctx[3].schedule.roomData.name + "";
+    	let t30_value = /*row*/ ctx[3].schedule.programData.year + "";
     	let t30;
     	let t31;
-    	let td10;
-    	let t32_value = /*row*/ ctx[3].stamp + "";
+    	let t32_value = /*row*/ ctx[3].schedule.programData.section + "";
     	let t32;
     	let t33;
+    	let td9;
+    	let t34_value = /*row*/ ctx[3].schedule.roomData.name + "";
+    	let t34;
+    	let t35;
+    	let td10;
+    	let t36_value = /*row*/ ctx[3].stamp + "";
+    	let t36;
+    	let t37;
 
     	const block = {
     		c: function create() {
@@ -27230,43 +27347,47 @@ var app = (function () {
     			t13 = space();
     			td6 = element("td");
     			t14 = text(t14_value);
-    			t15 = text(":");
+    			t15 = text(":\r\n                    ");
     			t16 = text(t16_value);
-    			t17 = text(" - ");
+    			t17 = space();
     			t18 = text(t18_value);
-    			t19 = text(":");
+    			t19 = text(" \r\n                    -\r\n                    ");
     			t20 = text(t20_value);
-    			t21 = space();
-    			td7 = element("td");
+    			t21 = text(":\r\n                    ");
     			t22 = text(t22_value);
     			t23 = space();
-    			td8 = element("td");
     			t24 = text(t24_value);
     			t25 = space();
+    			td7 = element("td");
     			t26 = text(t26_value);
-    			t27 = text(" - ");
+    			t27 = space();
+    			td8 = element("td");
     			t28 = text(t28_value);
     			t29 = space();
-    			td9 = element("td");
     			t30 = text(t30_value);
-    			t31 = space();
-    			td10 = element("td");
+    			t31 = text(" - ");
     			t32 = text(t32_value);
     			t33 = space();
-    			add_location(td0, file$1, 58, 18, 2600);
-    			add_location(td1, file$1, 59, 18, 2636);
-    			add_location(td2, file$1, 60, 18, 2743);
-    			add_location(td3, file$1, 61, 18, 2798);
+    			td9 = element("td");
+    			t34 = text(t34_value);
+    			t35 = space();
+    			td10 = element("td");
+    			t36 = text(t36_value);
+    			t37 = space();
+    			add_location(td0, file$1, 58, 18, 2602);
+    			add_location(td1, file$1, 59, 18, 2638);
+    			add_location(td2, file$1, 60, 18, 2745);
+    			add_location(td3, file$1, 61, 18, 2800);
     			set_style(span, "text-transform", "capitalize");
-    			add_location(span, file$1, 62, 22, 2861);
-    			add_location(td4, file$1, 62, 18, 2857);
-    			add_location(td5, file$1, 63, 18, 2953);
-    			add_location(td6, file$1, 64, 18, 3006);
-    			add_location(td7, file$1, 65, 18, 3164);
-    			add_location(td8, file$1, 66, 18, 3223);
-    			add_location(td9, file$1, 67, 18, 3355);
-    			add_location(td10, file$1, 68, 18, 3412);
-    			add_location(tr, file$1, 57, 16, 2576);
+    			add_location(span, file$1, 62, 22, 2863);
+    			add_location(td4, file$1, 62, 18, 2859);
+    			add_location(td5, file$1, 63, 18, 2955);
+    			add_location(td6, file$1, 64, 18, 3008);
+    			add_location(td7, file$1, 72, 18, 3847);
+    			add_location(td8, file$1, 73, 18, 3906);
+    			add_location(td9, file$1, 74, 18, 4038);
+    			add_location(td10, file$1, 75, 18, 4095);
+    			add_location(tr, file$1, 57, 16, 2578);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, tr, anchor);
@@ -27298,23 +27419,27 @@ var app = (function () {
     			append_dev(td6, t18);
     			append_dev(td6, t19);
     			append_dev(td6, t20);
-    			append_dev(tr, t21);
+    			append_dev(td6, t21);
+    			append_dev(td6, t22);
+    			append_dev(td6, t23);
+    			append_dev(td6, t24);
+    			append_dev(tr, t25);
     			append_dev(tr, td7);
-    			append_dev(td7, t22);
-    			append_dev(tr, t23);
+    			append_dev(td7, t26);
+    			append_dev(tr, t27);
     			append_dev(tr, td8);
-    			append_dev(td8, t24);
-    			append_dev(td8, t25);
-    			append_dev(td8, t26);
-    			append_dev(td8, t27);
     			append_dev(td8, t28);
-    			append_dev(tr, t29);
-    			append_dev(tr, td9);
-    			append_dev(td9, t30);
-    			append_dev(tr, t31);
-    			append_dev(tr, td10);
-    			append_dev(td10, t32);
+    			append_dev(td8, t29);
+    			append_dev(td8, t30);
+    			append_dev(td8, t31);
+    			append_dev(td8, t32);
     			append_dev(tr, t33);
+    			append_dev(tr, td9);
+    			append_dev(td9, t34);
+    			append_dev(tr, t35);
+    			append_dev(tr, td10);
+    			append_dev(td10, t36);
+    			append_dev(tr, t37);
     		},
     		p: function update(ctx, dirty) {
     			if (dirty & /*scheduleData*/ 1 && t2_value !== (t2_value = /*row*/ ctx[3].schedule.professorData.name.last + "")) set_data_dev(t2, t2_value);
@@ -27323,16 +27448,32 @@ var app = (function () {
     			if (dirty & /*scheduleData*/ 1 && t8_value !== (t8_value = /*row*/ ctx[3].schedule.school.semester + "")) set_data_dev(t8, t8_value);
     			if (dirty & /*scheduleData*/ 1 && t10_value !== (t10_value = /*row*/ ctx[3].schedule.type + "")) set_data_dev(t10, t10_value);
     			if (dirty & /*scheduleData*/ 1 && t12_value !== (t12_value = /*days*/ ctx[1][/*row*/ ctx[3].schedule.day] + "")) set_data_dev(t12, t12_value);
-    			if (dirty & /*scheduleData*/ 1 && t14_value !== (t14_value = /*row*/ ctx[3].schedule.time.start.hours + "")) set_data_dev(t14, t14_value);
-    			if (dirty & /*scheduleData*/ 1 && t16_value !== (t16_value = /*row*/ ctx[3].schedule.time.start.minutes + "")) set_data_dev(t16, t16_value);
-    			if (dirty & /*scheduleData*/ 1 && t18_value !== (t18_value = /*row*/ ctx[3].schedule.time.end.hours + "")) set_data_dev(t18, t18_value);
-    			if (dirty & /*scheduleData*/ 1 && t20_value !== (t20_value = /*row*/ ctx[3].schedule.time.end.minutes + "")) set_data_dev(t20, t20_value);
-    			if (dirty & /*scheduleData*/ 1 && t22_value !== (t22_value = /*row*/ ctx[3].schedule.courseData.name + "")) set_data_dev(t22, t22_value);
-    			if (dirty & /*scheduleData*/ 1 && t24_value !== (t24_value = /*row*/ ctx[3].schedule.programData.acronym + "")) set_data_dev(t24, t24_value);
-    			if (dirty & /*scheduleData*/ 1 && t26_value !== (t26_value = /*row*/ ctx[3].schedule.programData.year + "")) set_data_dev(t26, t26_value);
-    			if (dirty & /*scheduleData*/ 1 && t28_value !== (t28_value = /*row*/ ctx[3].schedule.programData.section + "")) set_data_dev(t28, t28_value);
-    			if (dirty & /*scheduleData*/ 1 && t30_value !== (t30_value = /*row*/ ctx[3].schedule.roomData.name + "")) set_data_dev(t30, t30_value);
-    			if (dirty & /*scheduleData*/ 1 && t32_value !== (t32_value = /*row*/ ctx[3].stamp + "")) set_data_dev(t32, t32_value);
+
+    			if (dirty & /*scheduleData*/ 1 && t14_value !== (t14_value = (/*row*/ ctx[3].schedule.time.start.hours < 10 && /*row*/ ctx[3].schedule.time.start.hours >= 0
+    			? "0" + /*row*/ ctx[3].schedule.time.start.hours
+    			: /*row*/ ctx[3].schedule.time.start.hours) + "")) set_data_dev(t14, t14_value);
+
+    			if (dirty & /*scheduleData*/ 1 && t16_value !== (t16_value = (/*row*/ ctx[3].schedule.time.start.minutes < 10 && /*row*/ ctx[3].schedule.time.start.minutes >= 0
+    			? "0" + /*row*/ ctx[3].schedule.time.start.minutes
+    			: /*row*/ ctx[3].schedule.time.start.minutes) + "")) set_data_dev(t16, t16_value);
+
+    			if (dirty & /*scheduleData*/ 1 && t18_value !== (t18_value = /*row*/ ctx[3].schedule.time.start.zone + "")) set_data_dev(t18, t18_value);
+
+    			if (dirty & /*scheduleData*/ 1 && t20_value !== (t20_value = (/*row*/ ctx[3].schedule.time.end.hours < 10 && /*row*/ ctx[3].schedule.time.end.hours >= 0
+    			? "0" + /*row*/ ctx[3].schedule.time.end.hours
+    			: /*row*/ ctx[3].schedule.time.end.hours) + "")) set_data_dev(t20, t20_value);
+
+    			if (dirty & /*scheduleData*/ 1 && t22_value !== (t22_value = (/*row*/ ctx[3].schedule.time.end.minutes < 10 && /*row*/ ctx[3].schedule.time.end.minutes >= 0
+    			? "0" + /*row*/ ctx[3].schedule.time.end.minutes
+    			: /*row*/ ctx[3].schedule.time.end.minutes) + "")) set_data_dev(t22, t22_value);
+
+    			if (dirty & /*scheduleData*/ 1 && t24_value !== (t24_value = /*row*/ ctx[3].schedule.time.end.zone + "")) set_data_dev(t24, t24_value);
+    			if (dirty & /*scheduleData*/ 1 && t26_value !== (t26_value = /*row*/ ctx[3].schedule.courseData.name + "")) set_data_dev(t26, t26_value);
+    			if (dirty & /*scheduleData*/ 1 && t28_value !== (t28_value = /*row*/ ctx[3].schedule.programData.acronym + "")) set_data_dev(t28, t28_value);
+    			if (dirty & /*scheduleData*/ 1 && t30_value !== (t30_value = /*row*/ ctx[3].schedule.programData.year + "")) set_data_dev(t30, t30_value);
+    			if (dirty & /*scheduleData*/ 1 && t32_value !== (t32_value = /*row*/ ctx[3].schedule.programData.section + "")) set_data_dev(t32, t32_value);
+    			if (dirty & /*scheduleData*/ 1 && t34_value !== (t34_value = /*row*/ ctx[3].schedule.roomData.name + "")) set_data_dev(t34, t34_value);
+    			if (dirty & /*scheduleData*/ 1 && t36_value !== (t36_value = /*row*/ ctx[3].stamp + "")) set_data_dev(t36, t36_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(tr);

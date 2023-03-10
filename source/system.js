@@ -3222,10 +3222,12 @@ module.exports = function (win) {
 					start: {
 						hours: scheduleData.time.start.hours,
 						minutes: scheduleData.time.start.minutes,
+						zone: scheduleData.time.start.zone,
 					},
 					end: {
 						hours: scheduleData.time.end.hours,
 						minutes: scheduleData.time.end.minutes,
+						zone: scheduleData.time.end.zone,
 					},
 				},
 				school: {

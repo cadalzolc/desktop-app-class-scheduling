@@ -166,12 +166,12 @@
     const diff = date2.getTime() - date1.getTime();
     const val = (((diff / 1000) / 60) / 60);
 
-    if (val < 1 || val > 3) {
+    if (val < 1.0 || val > 5.0) {
       windowDisabled = false;
       alertOpen = true;
       alertOptions = {
         success: false,
-        message: "A minimum of 1 hour or maximum of 3 hours schedule is required"
+        message: "A minimum of 1 hour or maximum of 5 hours schedule is required"
       };
       return;
     }
